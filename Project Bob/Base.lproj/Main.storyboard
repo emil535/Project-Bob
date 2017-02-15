@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qnq-DP-lcu">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Member View Controller-->
+        <scene sceneID="9pD-L9-bC7">
+            <objects>
+                <viewController id="qnq-DP-lcu" customClass="MemberViewController" customModule="Project_Bob" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GUO-4q-TXy"/>
+                        <viewControllerLayoutGuide type="bottom" id="P0j-hr-sbN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="center" id="3E3-ba-GZi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iR5-3y-tFn" userLabel="Image Stack View">
+                                <rect key="frame" x="36" y="34" width="300" height="333"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="college girl - large" translatesAutoresizingMaskIntoConstraints="NO" id="Ojk-Na-msN">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="C5L-3H-3Xp"/>
+                                            <constraint firstAttribute="width" secondItem="Ojk-Na-msN" secondAttribute="height" multiplier="1:1" id="LeF-Mz-gzN"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5mp-B8-qmi">
+                                        <rect key="frame" x="0.0" y="300" width="300" height="33"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Add Image">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addImageButton:" destination="qnq-DP-lcu" eventType="touchUpInside" id="2VH-Do-6iN"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="KEH-bT-QTp" userLabel="Text Fields Stack View">
+                                <rect key="frame" x="36" y="397" width="303" height="190"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BXk-PT-grT">
+                                        <rect key="frame" x="0.0" y="0.0" width="303" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o6x-YK-Vvl" userLabel="Member City">
+                                        <rect key="frame" x="0.0" y="40" width="303" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E-Mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ng7-q7-OVw" userLabel="Member E-Mail">
+                                        <rect key="frame" x="0.0" y="80" width="303" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Member status" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yVw-M8-hj8">
+                                        <rect key="frame" x="0.0" y="120" width="303" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date joined" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QNT-Aw-HVx">
+                                        <rect key="frame" x="0.0" y="160" width="303" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="iR5-3y-tFn" firstAttribute="top" secondItem="GUO-4q-TXy" secondAttribute="bottom" constant="20" id="5B7-Sc-mYG"/>
+                            <constraint firstItem="P0j-hr-sbN" firstAttribute="top" secondItem="KEH-bT-QTp" secondAttribute="bottom" constant="80" id="HqJ-eD-AyX"/>
+                            <constraint firstAttribute="trailing" secondItem="KEH-bT-QTp" secondAttribute="trailing" constant="20" id="QyU-Jy-mQd"/>
+                            <constraint firstItem="KEH-bT-QTp" firstAttribute="top" secondItem="GUO-4q-TXy" secondAttribute="bottom" constant="20" id="UZ6-dR-Iog"/>
+                            <constraint firstItem="iR5-3y-tFn" firstAttribute="leading" secondItem="3E3-ba-GZi" secondAttribute="leadingMargin" constant="20" id="XAE-4n-oYg"/>
+                            <constraint firstItem="KEH-bT-QTp" firstAttribute="leading" secondItem="3E3-ba-GZi" secondAttribute="leadingMargin" constant="20" id="XtL-vE-7aZ"/>
+                            <constraint firstItem="KEH-bT-QTp" firstAttribute="top" secondItem="iR5-3y-tFn" secondAttribute="bottom" constant="30" id="gxP-i3-L8U"/>
+                            <constraint firstItem="KEH-bT-QTp" firstAttribute="leading" secondItem="iR5-3y-tFn" secondAttribute="trailing" constant="52" id="i3Y-rf-bAq"/>
+                            <constraint firstItem="iR5-3y-tFn" firstAttribute="leading" secondItem="3E3-ba-GZi" secondAttribute="leadingMargin" constant="20" id="tOx-hx-yGE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="KEH-bT-QTp" secondAttribute="trailing" constant="20" id="v99-aC-4Tb"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="5B7-Sc-mYG"/>
+                                <exclude reference="XAE-4n-oYg"/>
+                                <exclude reference="tOx-hx-yGE"/>
+                                <exclude reference="QyU-Jy-mQd"/>
+                                <exclude reference="UZ6-dR-Iog"/>
+                                <exclude reference="XtL-vE-7aZ"/>
+                                <exclude reference="gxP-i3-L8U"/>
+                                <exclude reference="i3Y-rf-bAq"/>
+                                <exclude reference="v99-aC-4Tb"/>
+                                <exclude reference="HqJ-eD-AyX"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact">
+                            <mask key="constraints">
+                                <include reference="5B7-Sc-mYG"/>
+                                <include reference="tOx-hx-yGE"/>
+                                <include reference="QyU-Jy-mQd"/>
+                                <include reference="UZ6-dR-Iog"/>
+                                <include reference="i3Y-rf-bAq"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular">
+                            <mask key="constraints">
+                                <include reference="XAE-4n-oYg"/>
+                                <include reference="XtL-vE-7aZ"/>
+                                <include reference="gxP-i3-L8U"/>
+                                <include reference="v99-aC-4Tb"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="HqJ-eD-AyX"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="constraintTextStackBottom" destination="HqJ-eD-AyX" id="O1e-nG-Uga"/>
+                        <outlet property="memberCity" destination="o6x-YK-Vvl" id="ClO-iT-eg6"/>
+                        <outlet property="memberEMail" destination="ng7-q7-OVw" id="Qr1-kC-GAe"/>
+                        <outlet property="memberImage" destination="Ojk-Na-msN" id="QNZ-Yk-JLO"/>
+                        <outlet property="memberJoinDate" destination="QNT-Aw-HVx" id="1Up-oK-w78"/>
+                        <outlet property="memberName" destination="BXk-PT-grT" id="YzO-x8-jyH"/>
+                        <outlet property="memberStatus" destination="yVw-M8-hj8" id="N8a-zo-xC2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NNh-hp-1zk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1516" y="-745"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="college girl - large" width="1200" height="1200"/>
+    </resources>
+</document>
