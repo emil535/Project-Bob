@@ -32,6 +32,7 @@ class Member {
     }
     
     let typeOfStatus = ["Guest", "Member", "Presenter", "Organizer"]
+    let swiftLevel = [ "Beginner", "Novice", "Experienced", "Expert", "Swift Guru"]
     
     func statusDescription (status: Float) -> String {
         var des: String
