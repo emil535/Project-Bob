@@ -31,8 +31,8 @@ class Member {
         //   self.eMail = eMail
     }
     
-    let typeOfStatus = ["Guest", "Member", "Presenter", "Organizer"]
-    let swiftLevel = [ "Beginner", "Novice", "Experienced", "Expert", "Swift Guru"]
+  //  let typeOfStatus = ["Guest", "Member", "Presenter", "Organizer"]
+   
     
     func statusDescription (status: Float) -> String {
         var des: String
@@ -59,5 +59,7 @@ class Member {
 }
 
 let status = ["Guest", "Member", "Presenter", "Organizer"]
+let swiftLevel = [ "Beginner", "Novice", "Experienced", "Expert", "Swift Guru"]
+let memberInfo = [status, swiftLevel]
 
 

@@ -14,6 +14,8 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     // MARK: - Properties & Outlets
     
     //  datePicker and Picker
+    var memberS = ""
+    var memberL = ""
     let memberStatusPicker = UIPickerView()
     let memberJoinDatePicker = UIDatePicker()
     
@@ -43,6 +45,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         self.memberStatusPicker.dataSource = self
         // default value for pickerView
         memberStatusPicker.selectRow(1, inComponent: 0, animated: true)
+        memberStatusPicker.selectRow(1, inComponent: 1, animated: true)
         
         // initialize date picker
         memberJoinDatePicker.date = NSDate() as Date
@@ -181,19 +184,25 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     @available(iOS 2.0, *)
     // set the number of spinners aka components in Picker View
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        return 2
     }
     //   Set the number of rows in Picker View
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return status.count
+        return memberInfo[component].count     //status.count
     }
     //   Assign array of strings to PickerView
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return status[row]
+        return memberInfo[component][row]     //status[row]
     }
     //  Assign selection made by pickerView to textField
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        memberStatus.text = status[row]
+
+        if component == 0 {
+            memberS = memberInfo[0][row]
+        } else {
+            memberL = memberInfo[1][row]
+        }
+        memberStatus.text =  memberS + " - " +  memberL     //  status[row]
     }
     
     //  MARK: - Support functions
