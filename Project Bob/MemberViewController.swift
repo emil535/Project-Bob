@@ -4,33 +4,26 @@
 //
 //  Created by Emil Safier on 1/20/17.
 //  Copyright © 2017 Emil Safier. All rights reserved.
-//  VERSION BOB-2    (All notes for Bob-2 slides removed)
+//  VERSION BOB-2    (All notes for Bob-1 slides removed)
 
 import UIKit
-class MemberViewController: UIViewController,
-    UITextFieldDelegate , UIPickerViewDelegate, UIPickerViewDataSource,
-    UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-    
-    // MARK: - Notes
-
+class MemberViewController: UIViewController, UITextFieldDelegate ,
+    UIPickerViewDelegate, UIPickerViewDataSource,
+    UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: - Properties & Outlets
     
-    //  add properties of datePicker and Picker
-    
-    let memberStatusPicker = UIPickerView()     //  Bob 1 - SLIDE 8:
-    let memberJoinDatePicker = UIDatePicker()   //  Bob 1 - SLIDE 10:
+    //  datePicker and Picker
+    let memberStatusPicker = UIPickerView()
+    let memberJoinDatePicker = UIDatePicker()
     
     // RESERVED for Bob 2 - Instance of Member class - Which is defined in the Member.Swift file
     // let thisMember = Member(name: "", status: 0)
     
-    // Bob 1 - SLIDE 11:   Animate
+    //    Animate
     @IBOutlet weak var memberImage: UIImageView!
-    @IBOutlet weak var constraintTextStackBottom: NSLayoutConstraint! // Bob 1 - SLIDE 11:   Animate
-    var constraintInitially: CGFloat?  //constraintTextStackBottom.constant
-    
-    
-    
+    @IBOutlet weak var constraintTextStackBottom: NSLayoutConstraint!
+    var constraintInitially: CGFloat?       //   constraintTextStackBottom.constant
     @IBOutlet weak var memberName: UITextField!
     @IBOutlet weak var memberCity: UITextField!
     @IBOutlet weak var memberEMail: UITextField!
@@ -45,20 +38,18 @@ class MemberViewController: UIViewController,
         self.memberStatus.delegate = self
         self.memberJoinDate.delegate = self
         
-        // Bob 1 - SLIDE 8:  picker delegates initialized
+        // picker delegates initialized
         self.memberStatusPicker.delegate = self
         self.memberStatusPicker.dataSource = self
-        //  NOTE:  Bob 1 - SLIDE 8:  default value for pickerView
+        // default value for pickerView
         memberStatusPicker.selectRow(1, inComponent: 0, animated: true)
         
-        
-        // Bob 1 - SLIDE 10:   initialize date picker
+        // initialize date picker
         memberJoinDatePicker.date = NSDate() as Date
         memberJoinDatePicker.datePickerMode = UIDatePickerMode.date
 
-        // Bob 1 - SLIDE 11:  constraint initial value
+        // constraint initial value
         constraintInitially = self.constraintTextStackBottom.constant
-         print ("CONSTRAINT:  \(constraintInitially)")
 
         //      memberImage.image = UIImage(named: thisMember.imageName)
         
@@ -81,17 +72,16 @@ class MemberViewController: UIViewController,
         memberJoinDate.text = joinDate
 */
         
-//*     //  NOTE:  Bob 1 - SLIDE 15:  Tap ends edit session
+        //  Tap ends edit session
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
         
-//*     //  NOTE:  Bob 1 - SLIDE 16:  Add observer in Notification Center
+        //  Add observer in Notification Center
         let center = NotificationCenter.default
         center.addObserver(self,
                            selector: #selector(keyboardWillHide),
                            name: .UIKeyboardWillHide,
                            object: nil)
-//*/
-    }   // ** end of View Did Load
+    }   // end viewDidLoad
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -99,7 +89,7 @@ class MemberViewController: UIViewController,
     }
 
     // MARK: - Actions
-//*    //  NOTE:  Bob 1 - SLIDE 19:  Image Picker Controller
+    //  Image Picker Controller
     @IBAction func addImageButton(_ sender: UIButton) {
         let photoPicker = UIImagePickerController()
         photoPicker.delegate = self
@@ -116,23 +106,21 @@ class MemberViewController: UIViewController,
         memberImage.image = info[UIImagePickerControllerOriginalImage] as? UIImage
         self.dismiss(animated: true, completion: nil)
     }
-//*/
+
     //  MARK:  -  Text Field
-    //  NOTE: display keyboard or Picker or Date Picker depending on which text field is first responder
-    
-    //*  Bob 1 - SLIDE 6:  user pressed Return/Done- resigh first responder
+    //  user pressed Return/Done- resigh first responder
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print( "RETURN PRESSED" )
         textField.resignFirstResponder()
         return true
      }
     
-//*  Bob 1 - SLIDE 7:  textFieldDidBeginEditing
+    //  textFieldDidBeginEditing
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        //  Bob 1 - SLIDE 14:   ANIMATE
+        //  Animate
         if constraintTextStackBottom.constant == constraintInitially {
             keyBoardMove (moveUp: true) }
-        // NOTE: helps user see which field is active
+        //   active field is red
         textField.textColor = UIColor.red
         //   select text field which is being edited
         switch textField {
@@ -148,26 +136,23 @@ class MemberViewController: UIViewController,
             print ( "KEYBOARD:  EMail ")
             textField.returnKeyType = UIReturnKeyType.done
             textField.keyboardType = UIKeyboardType.emailAddress
-//*          Bob 1 - SLIDE 8:  set Picker as input Keyboard
+        //  set Picker as input Keyboard
         case memberStatus:
             print ("KEYBOARD:  Picker")
             textField.inputView = memberStatusPicker
-//*/
-//*          Bob 1 - SLIDE 10:  set Date Picker as input Keyboard
+        //  set Date Picker as input Keyboard
         case memberJoinDate:
             print ("KEYBOARD:  Date Picker")
-           // memberJoinDatePicker.datePickerMode = UIDatePickerMode.date
             memberJoinDatePicker.addTarget(self,
                     action: #selector(MemberViewController.joinDateChanged(_:)),
                     for: .valueChanged)
             textField.inputView = memberJoinDatePicker
-//*/
         default:
            break
         }
     }
-//*/           //  keyBoardMove (moveUp: true)   // Bob 1 - SLIDE 13:
-    //  Use to validate data and indicate editing is done
+
+    //  validate data and indicate editing is done
     func textFieldDidEndEditing(_ textField: UITextField) {
         print ("END EDITING")
         switch textField {
@@ -184,9 +169,6 @@ class MemberViewController: UIViewController,
         }
     }
     
-//*/   // keyBoardMove (moveUp: false)  // Bob 1 - SLIDE 13:
-    
-//*  Bob 1 - SLIDE 10:  data Picker
     // MARK:  Date Picker
     func joinDateChanged (_ sender: UIDatePicker){
         let formatter = DateFormatter()
@@ -194,9 +176,7 @@ class MemberViewController: UIViewController,
         memberJoinDate.text! = formatter.string(from: sender.date)
         print ("DUE DATE \(memberJoinDate.text!)")
     }
-//*/
     
-//*   Bob 1 - SLIDE 9:  PickerView protocols
     //  MARK:  PickerView protocols
     @available(iOS 2.0, *)
     // set the number of spinners aka components in Picker View
@@ -214,19 +194,15 @@ class MemberViewController: UIViewController,
     //  Assign selection made by pickerView to textField
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         memberStatus.text = status[row]
-       // memberStatus.resignFirstResponder()   // selection made; dismiss picker
     }
     
-//*/
-    
     //  MARK: - Support functions
-//* Bob 1 - SLIDE 16:  notification action
+    //  notification action
     func keyboardWillHide() -> Void {
         keyBoardMove(moveUp: false)
     }
-//*/
     
-//*  Bob 1 - SLIDE 12:  Animate for Keyboard
+    //  Animate for Keyboard
     //  NOTE:  hide image and move (stack of) text fields out of the way by
     //         modifying the constraint on the text stack and changing image alpha
     func keyBoardMove (moveUp: Bool) -> Void {
@@ -252,10 +228,8 @@ class MemberViewController: UIViewController,
                                 },
                             completion: nil )
     }
-//*/
     
-//*    
-    //  Bob 1 - SLIDE 18:  Validate E-Mail format
+    //  Validate E-Mail format
     func isValidEmail(testStr:String) -> Bool {
         // print("validate calendar: \(testStr)")
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
@@ -263,12 +237,11 @@ class MemberViewController: UIViewController,
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: testStr)
     }
-//*/
 
 }    // last curly braces for MemberViewController
 
 
-//                END OF BOB 1
+
 
 
 
@@ -296,27 +269,7 @@ class MemberViewController: UIViewController,
     
     
     
-    // MARK: -  Testing he delegate
-/*
-     @IBAction func saveColor(_ sender: UIBarButtonItem) {
-     //  Test with if statement
-     if (delegate != nil) {
-     delegate!.myVCDidFinish( controller: self, text: colorLabel!.text!)
-     }
-     }
-*/
-    
-/*
-     @IBAction func saveColor(_ sender: UIBarButtonItem) {
-     //  Test with Guard statement
-     guard  let delegate = self.delegate else {
-     print ("Delegate not set")
-     return
-     }
-     delegate.myVCDidFinish(controller: self, text: colorLabel!.text!)
-     }
-*/
-    
+
     
     
     
@@ -334,8 +287,4 @@ class MemberViewController: UIViewController,
      
      */
     
-/*
- let x: CGFloat
- x = screenWidth()
- print ("WIDTH:  \(x)")
- */
+
