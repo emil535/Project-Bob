@@ -4,7 +4,7 @@
 //
 //  Created by Emil Safier on 1/20/17.
 //  Copyright © 2017 Emil Safier. All rights reserved.
-//
+//  VERSION BOB-2    (All notes for Bob-2 slides removed)
 
 import UIKit
 class MemberViewController: UIViewController,
@@ -12,15 +12,7 @@ class MemberViewController: UIViewController,
     UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     // MARK: - Notes
-    /*
-    UITextFieldDelegate - The UITextFieldDelegate protocol defines methods that you use to manage the editing and validation of text in a UITextField object. All of the methods of this protocol are optional.
-    UIPickerViewDelegate - The delegate of a UIPickerView object must adopt this protocol and implement at least some of its methods to provide the picker view with the data it needs to construct itself.
-     UIImagePickerControllerDelegate -
-     The UIImagePickerControllerDelegate protocol defines methods that your delegate object must implement to interact with the image picker interface. The methods of this protocol notify your delegate when the user either picks an image or movie, or cancels the picker operation.
-     UINavigationControllerDelegate - 
-     
-     
-    */
+
     
     // MARK: - Properties & Outlets
     
