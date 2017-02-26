@@ -14,10 +14,16 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     // MARK: - Properties & Outlets
     
     //  datePicker and Picker
-    var memberS = ""
-    var memberL = ""
+    let newMember: Bool = false
+    let defaultStatus = 0           // Guest
+    let defaultSwiftLevel = 0       // Beginner
+
     let memberStatusPicker = UIPickerView()
     let memberJoinDatePicker = UIDatePicker()
+    
+   // let thismember =  Member(name: nil, city: nil, eMail: nil, status: nil, level: nil, imageName: nil, dateJoined: nil)
+    
+     let thisMember = sampleMembers[0]       // sample data
     
     // RESERVED for Bob 2 - Instance of Member class - Which is defined in the Member.Swift file
     // let thisMember = Member(name: "", status: 0)
@@ -43,37 +49,70 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         // picker delegates initialized
         self.memberStatusPicker.delegate = self
         self.memberStatusPicker.dataSource = self
-        // default value for pickerView
-        memberStatusPicker.selectRow(1, inComponent: 0, animated: true)
-        memberStatusPicker.selectRow(1, inComponent: 1, animated: true)
+
         
-        // initialize date picker
-        memberJoinDatePicker.date = NSDate() as Date
-        memberJoinDatePicker.datePickerMode = UIDatePickerMode.date
+  
 
         // constraint initial value
         constraintInitially = self.constraintTextStackBottom.constant
 
-        //      memberImage.image = UIImage(named: thisMember.imageName)
         
-/*      RESERVED for BOB 2
-        memberName.text = thisMember.name
-        memberCity.text = thisMember.city
-        memberEMail.text = thisMember.eMail
-        memberStatus.text = thisMember.typeOfStatus[thisMember.status]
-        print("STATUS:  \(thisMember.typeOfStatus[thisMember.status])")
-*/
-    
-/*      RESERVED for BOB 2
+        
+        //  RESERVED for BOB 2
+        //  put selected member data into display
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        if newMember {
+            // no image
+            memberImage.image = UIImage(named: "No Image")
+            // default value for pickerView
+            // set Member values to default setting
+            thisMember.status = defaultStatus
+            thisMember.level = defaultSwiftLevel
+            
+            memberStatus.text = status[defaultStatus]  + " - " + swiftLevel[defaultSwiftLevel]
+            //  matching settings on Status Picker
+            memberStatusPicker.selectRow(defaultStatus, inComponent: 0, animated: true)  // default: member
+            memberStatusPicker.selectRow(defaultSwiftLevel, inComponent: 1, animated: true)  // default: novice
+            // initialize date picker at todays date
+            let dateCurrent = Date()
+            memberJoinDatePicker.date = dateCurrent         // set picker to current date
+            memberJoinDatePicker.datePickerMode = UIDatePickerMode.date    //  display date (only)
+            memberJoinDate?.text = formatter.string(from: dateCurrent)//
+            thisMember.dateJoined = (memberJoinDate?.text)!     // member value to default setting
+        } else {
+ //*        
+            memberImage.image = UIImage(named: thisMember.imageName!)
+            memberName.text = thisMember.name
+            memberCity.text = thisMember.city
+            memberEMail.text = thisMember.eMail
+            memberStatus.text = status[thisMember.status]  + " - " + swiftLevel[thisMember.level]
+            // picked value for pickerView
+            memberStatusPicker.selectRow(thisMember.status, inComponent: 0, animated: true)
+            memberStatusPicker.selectRow(thisMember.level, inComponent: 1, animated: true)
+            // joinDate on Date Picker
+            memberJoinDate.text = thisMember.dateJoined
+            
+            
+            let joinDate = thisMember.dateJoined ?? formatter.string(from: Date())
+            memberJoinDatePicker.date = (formatter.date(from: joinDate))!
+            memberJoinDatePicker.datePickerMode = UIDatePickerMode.date
+            memberJoinDate?.text = joinDate
+        //    let joinDate = thisMember.dateJoined ?? formatter.string(from: Date())
+         //   memberJoinDate.text = joinDate
+ //*/
+        }
+        //  RESERVED for BOB 2
         //  if join date is nil then default it to today's date
         //  set default date to current date
-        let formatter = DateFormatter()
+        
         //  Instances of NSDateFormatter create string representations of NSDate objects, 
         //  and convert textual representations of dates and times into NSDate objects.
-        formatter.dateStyle = .long
-        let joinDate = thisMember.dateJoined ?? formatter.string(from: Date())
-        memberJoinDate.text = joinDate
-*/
+       
+        //  formatter.dateStyle = .long
+
+
         
         //  Tap ends edit session
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
@@ -144,7 +183,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             print ("KEYBOARD:  Picker")
             textField.inputView = memberStatusPicker
         //  set Date Picker as input Keyboard
-        case memberJoinDate:
+        case memberJoinDate!:
             print ("KEYBOARD:  Date Picker")
             memberJoinDatePicker.addTarget(self,
                     action: #selector(MemberViewController.joinDateChanged(_:)),
@@ -175,9 +214,8 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     // MARK:  Date Picker
     func joinDateChanged (_ sender: UIDatePicker){
         let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        memberJoinDate.text! = formatter.string(from: sender.date)
-        print ("DUE DATE \(memberJoinDate.text!)")
+        formatter.dateStyle = .medium
+        memberJoinDate?.text! = formatter.string(from: sender.date)
     }
     
     //  MARK:  PickerView protocols
@@ -196,13 +234,12 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     }
     //  Assign selection made by pickerView to textField
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-
         if component == 0 {
-            memberS = memberInfo[0][row]
+            thisMember.status = row
         } else {
-            memberL = memberInfo[1][row]
+            thisMember.level = row
         }
-        memberStatus.text =  memberS + " - " +  memberL     //  status[row]
+        memberStatus.text = memberInfo[0][thisMember.status] + " - " +  memberInfo[1][thisMember.level]  // update UI
     }
     
     //  MARK: - Support functions
