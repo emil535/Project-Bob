@@ -11,6 +11,35 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Table View Controller-->
+        <scene sceneID="y3I-NC-WI8">
+            <objects>
+                <tableViewController id="c8f-Q7-Zf2" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Svv-DM-iTZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="xxv-OD-43Y">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xxv-OD-43Y" id="tDs-ud-dDK">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="c8f-Q7-Zf2" id="O6J-H7-q6m"/>
+                            <outlet property="delegate" destination="c8f-Q7-Zf2" id="6mH-4S-6FU"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="ux4-x3-Ysk"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tKK-8Y-fa7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1132" y="-748.87556221889065"/>
+        </scene>
         <!--Member View Controller-->
         <scene sceneID="9pD-L9-bC7">
             <objects>
@@ -145,7 +174,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NNh-hp-1zk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1516" y="-745"/>
+            <point key="canvasLocation" x="2455.1999999999998" y="-745.27736131934034"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Kav-H9-tsO">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tow-FX-t2F" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="s31-iB-rWy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="c8f-Q7-Zf2" kind="relationship" relationship="rootViewController" id="H0A-lc-R0U"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pp9-KQ-Vwx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="192.80000000000001" y="-748.87556221889065"/>
         </scene>
     </scenes>
     <resources>

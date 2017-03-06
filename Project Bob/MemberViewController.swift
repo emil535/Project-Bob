@@ -14,7 +14,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     // MARK: - Properties & Outlets
     
     //  datePicker and Picker
-    let newMember: Bool = false
+    let newMember: Bool = true
     let defaultStatus = 0           // Guest
     let defaultSwiftLevel = 0       // Beginner
 
@@ -23,7 +23,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     
    // let thismember =  Member(name: nil, city: nil, eMail: nil, status: nil, level: nil, imageName: nil, dateJoined: nil)
     
-     let thisMember = sampleMembers[0]       // sample data
+     let thisMember = sampleMembers[1]       // sample data
     
     // RESERVED for Bob 2 - Instance of Member class - Which is defined in the Member.Swift file
     // let thisMember = Member(name: "", status: 0)

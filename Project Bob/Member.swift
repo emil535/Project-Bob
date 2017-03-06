@@ -7,15 +7,11 @@
 //
 
 import Foundation
-
-
-
 class Member {
-    
     var name: String        // name of Member
     var city: String?       // city of member
     var eMail: String?      // e-Mail address
-    var status: Int         // 0, 1, 2, 3   correxponding to Guest Member Presenter Organizer
+    var status: Int         // 0, 1, 2, 3   Guest Member Presenter Organizer
     var level: Int          // swift level  Beginner, Novice, Qualified, Expert
     var dateJoined: String?
     var imageName: String?  // image name of member
@@ -24,17 +20,17 @@ class Member {
         name: String,
         city: String?,
         eMail: String?,
-        status: Int?,
-        level: Int?,
-        dateJoined: String?,
+        status: Int,
+        level: Int,
+        dateJoined: String,
         imageName: String?
         )
     {
         self.name = name
         self.city = city
         self.eMail = eMail
-        self.status = status!
-        self.level = level!
+        self.status = status
+        self.level = level
         self.dateJoined = dateJoined
         self.imageName = imageName
     }
@@ -43,9 +39,17 @@ class Member {
 //
 let status = ["Guest", "Member", "Presenter", "Organizer"]
 let swiftLevel = [ "Beginner", "Novice", "Experienced", "Expert", "Swift Guru"]
-let memberInfo = [status, swiftLevel]   // Array consisting of two arrays representing choices for status and level of member
+let memberInfo = [status, swiftLevel]
+
+// Array consisting of two arrays representing choices for status and level of member
 
 let sampleMembers = [
-Member(name: "LucyB", city: "Los Angeles", eMail: "LucyFinkel@Aol.com", status: 0, level: 3, dateJoined: "Jan 22, 2016",imageName: "college girl"),
+Member(name: "LucyB",
+       city: "Los Angeles",
+       eMail: "LucyFinkel@Aol.com",
+       status: 0,
+       level: 3,
+       dateJoined: "Jan 22, 2016",
+       imageName: "college girl"),
 Member(name: "Bob", city: "Santa Monica", eMail: "Bob105@Gmail.com", status: 1, level: 2, dateJoined: "Feb 14, 2017", imageName: "college guy")
 ]
