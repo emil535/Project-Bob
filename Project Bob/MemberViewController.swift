@@ -4,12 +4,14 @@
 //
 //  Created by Emil Safier on 1/20/17.
 //  Copyright © 2017 Emil Safier. All rights reserved.
-//
+//  This is a STARTING POINT for those following the lecture for Bob-1
 
 import UIKit
 class MemberViewController: UIViewController,
-    UITextFieldDelegate , UIPickerViewDelegate, UIPickerViewDataSource,
-    UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    UITextFieldDelegate
+    , UIPickerViewDelegate, UIPickerViewDataSource       //  Bob 1 - SLIDE 8
+    , UIImagePickerControllerDelegate, UINavigationControllerDelegate  //  Bob 1 - SLIDE 19
+{
     
     // MARK: - Notes
     /*
@@ -17,27 +19,20 @@ class MemberViewController: UIViewController,
     UIPickerViewDelegate - The delegate of a UIPickerView object must adopt this protocol and implement at least some of its methods to provide the picker view with the data it needs to construct itself.
      UIImagePickerControllerDelegate -
      The UIImagePickerControllerDelegate protocol defines methods that your delegate object must implement to interact with the image picker interface. The methods of this protocol notify your delegate when the user either picks an image or movie, or cancels the picker operation.
-     UINavigationControllerDelegate - 
-     
-     
+     UINavigationControllerDelegate -
     */
     
     // MARK: - Properties & Outlets
-    
     //  add properties of datePicker and Picker
+   let memberStatusPicker = UIPickerView()     //  Bob 1 - SLIDE 8:
+   let memberJoinDatePicker = UIDatePicker()   //  Bob 1 - SLIDE 10:
     
-    let memberStatusPicker = UIPickerView()     //  Bob 1 - SLIDE 8:
-    let memberJoinDatePicker = UIDatePicker()   //  Bob 1 - SLIDE 10:
-    
-    // RESERVED for Bob 2 - Instance of Member class - Which is defined in the Member.Swift file
-    // let thisMember = Member(name: "", status: 0)
-    
-    // Bob 1 - SLIDE 11:   Animate
+//*
+    // Bob 1 - SLIDE 11:   Animate constraint & image outlets
     @IBOutlet weak var memberImage: UIImageView!
-    @IBOutlet weak var constraintTextStackBottom: NSLayoutConstraint! // Bob 1 - SLIDE 11:   Animate
+    @IBOutlet weak var constraintTextStackBottom: NSLayoutConstraint!
     var constraintInitially: CGFloat?  //constraintTextStackBottom.constant
-    
-    
+//*/
     
     @IBOutlet weak var memberName: UITextField!
     @IBOutlet weak var memberCity: UITextField!
@@ -53,44 +48,32 @@ class MemberViewController: UIViewController,
         self.memberStatus.delegate = self
         self.memberJoinDate.delegate = self
         
-        // Bob 1 - SLIDE 8:  picker delegates initialized
+//*
+        //  Bob 1 - SLIDE 8:  picker delegates initialized
         self.memberStatusPicker.delegate = self
         self.memberStatusPicker.dataSource = self
         //  NOTE:  Bob 1 - SLIDE 8:  default value for pickerView
         memberStatusPicker.selectRow(1, inComponent: 0, animated: true)
-        
-        
+//*/
+
+//*
         // Bob 1 - SLIDE 10:   initialize date picker
         memberJoinDatePicker.date = NSDate() as Date
         memberJoinDatePicker.datePickerMode = UIDatePickerMode.date
+//*/
 
+        
+//*
         // Bob 1 - SLIDE 11:  constraint initial value
         constraintInitially = self.constraintTextStackBottom.constant
          print ("CONSTRAINT:  \(constraintInitially)")
-
-        //      memberImage.image = UIImage(named: thisMember.imageName)
-        
-/*      RESERVED for BOB 2
-        memberName.text = thisMember.name
-        memberCity.text = thisMember.city
-        memberEMail.text = thisMember.eMail
-        memberStatus.text = thisMember.typeOfStatus[thisMember.status]
-        print("STATUS:  \(thisMember.typeOfStatus[thisMember.status])")
-*/
-    
-/*      RESERVED for BOB 2
-        //  if join date is nil then default it to today's date
-        //  set default date to current date
-        let formatter = DateFormatter()
-        //  Instances of NSDateFormatter create string representations of NSDate objects, 
-        //  and convert textual representations of dates and times into NSDate objects.
-        formatter.dateStyle = .long
-        let joinDate = thisMember.dateJoined ?? formatter.string(from: Date())
-        memberJoinDate.text = joinDate
-*/
-        
-//*     //  NOTE:  Bob 1 - SLIDE 15:  Tap ends edit session
+//*/
+     
+//*
+         //  NOTE:  Bob 1 - SLIDE 15:  Tap ends edit session
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+//*/
+        
         
 //*     //  NOTE:  Bob 1 - SLIDE 16:  Add observer in Notification Center
         let center = NotificationCenter.default
@@ -99,12 +82,9 @@ class MemberViewController: UIViewController,
                            name: .UIKeyboardWillHide,
                            object: nil)
 //*/
-    }   // ** end of View Did Load
+    }   // ** end of View Did Load   ***************************
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
 
     // MARK: - Actions
 //*    //  NOTE:  Bob 1 - SLIDE 19:  Image Picker Controller
@@ -125,23 +105,32 @@ class MemberViewController: UIViewController,
         self.dismiss(animated: true, completion: nil)
     }
 //*/
+    
     //  MARK:  -  Text Field
     //  NOTE: display keyboard or Picker or Date Picker depending on which text field is first responder
     
-    //*  Bob 1 - SLIDE 6:  user pressed Return/Done- resigh first responder
+//*
+    //  Bob 1 - SLIDE 6:  user pressed Return/Done- resigh first responder
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print( "RETURN PRESSED" )
         textField.resignFirstResponder()
+        keyBoardMove(moveUp: false)   // SLIDE 14:  ANIMATE FAIL
         return true
      }
+ //*/
     
-//*  Bob 1 - SLIDE 7:  textFieldDidBeginEditing
+//*
+    //  Bob 1 - SLIDE 7:  textFieldDidBeginEditing
     func textFieldDidBeginEditing(_ textField: UITextField) {
+//*
         //  Bob 1 - SLIDE 14:   ANIMATE
         if constraintTextStackBottom.constant == constraintInitially {
             keyBoardMove (moveUp: true) }
         // NOTE: helps user see which field is active
         textField.textColor = UIColor.red
+//*/
+        
+        //  keyBoardMove (moveUp: true)   //   SLIDE 13:   ANIMATE FAIL
         //   select text field which is being edited
         switch textField {
         case memberName :
@@ -156,15 +145,19 @@ class MemberViewController: UIViewController,
             print ( "KEYBOARD:  EMail ")
             textField.returnKeyType = UIReturnKeyType.done
             textField.keyboardType = UIKeyboardType.emailAddress
-//*          Bob 1 - SLIDE 8:  set Picker as input Keyboard
+
+//*
+        //  Bob 1 - SLIDE 8:  set Picker as input Keyboard
         case memberStatus:
             print ("KEYBOARD:  Picker")
             textField.inputView = memberStatusPicker
 //*/
-//*          Bob 1 - SLIDE 10:  set Date Picker as input Keyboard
+            
+//*
+        //  Bob 1 - SLIDE 10:  set Date Picker as input Keyboard
         case memberJoinDate:
             print ("KEYBOARD:  Date Picker")
-           // memberJoinDatePicker.datePickerMode = UIDatePickerMode.date
+            //  memberJoinDate.addTarget(<#T##target: Any?##Any?#>, action: <#T##Selector#>, for: <#T##UIControlEvents#>)
             memberJoinDatePicker.addTarget(self,
                     action: #selector(MemberViewController.joinDateChanged(_:)),
                     for: .valueChanged)
@@ -174,10 +167,17 @@ class MemberViewController: UIViewController,
            break
         }
     }
-//*/           //  keyBoardMove (moveUp: true)   // Bob 1 - SLIDE 13:
+//*/  // SLIDE 7
+    
+    
+//*
+    //  keyBoardMove (moveUp: true)   // Bob 1 - SLIDE 13:
     //  Use to validate data and indicate editing is done
     func textFieldDidEndEditing(_ textField: UITextField) {
         print ("END EDITING")
+       // keyBoardMove(moveUp: false)     //   SLIDE 13:   ANIMATE FAIL
+//*
+        // Bob 1 - SLIDE 18:
         switch textField {
         case memberEMail:
             print ("END EDIT:  E-Mail")
@@ -190,22 +190,15 @@ class MemberViewController: UIViewController,
         default:
             textField.textColor = UIColor.black
         }
-    }
-    
-//*/   // keyBoardMove (moveUp: false)  // Bob 1 - SLIDE 13:
-    
-//*  Bob 1 - SLIDE 10:  data Picker
-    // MARK:  Date Picker
-    func joinDateChanged (_ sender: UIDatePicker){
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        memberJoinDate.text! = formatter.string(from: sender.date)
-        print ("DUE DATE \(memberJoinDate.text!)")
+//*/
     }
 //*/
     
-//*   Bob 1 - SLIDE 9:  PickerView protocols
-    //  MARK:  PickerView protocols
+
+
+//  MARK:  PickerView protocols
+//*
+    //    Bob 1 - SLIDE 9:  PickerView protocols
     @available(iOS 2.0, *)
     // set the number of spinners aka components in Picker View
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -217,7 +210,7 @@ class MemberViewController: UIViewController,
     }
     //   Assign array of strings to PickerView
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return status[row]
+        return status[row]     // array of status types defined in Member.Swift
     }
     //  Assign selection made by pickerView to textField
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -227,14 +220,27 @@ class MemberViewController: UIViewController,
     
 //*/
     
+    // MARK:  Date Picker
+//*
+     // Bob 1 - SLIDE 10:  data Picker
+     func joinDateChanged (_ sender: UIDatePicker){
+     let formatter = DateFormatter()
+     formatter.dateStyle = .long
+     memberJoinDate.text! = formatter.string(from: sender.date)
+     print ("DUE DATE \(memberJoinDate.text!)")
+     }
+//*/
+    
     //  MARK: - Support functions
-//* Bob 1 - SLIDE 16:  notification action
+//*
+    //  Bob 1 - SLIDE 16:  notification action
     func keyboardWillHide() -> Void {
         keyBoardMove(moveUp: false)
     }
 //*/
     
-//*  Bob 1 - SLIDE 12:  Animate for Keyboard
+//*
+    // Bob 1 - SLIDE 12:  Animate for Keyboard
     //  NOTE:  hide image and move (stack of) text fields out of the way by
     //         modifying the constraint on the text stack and changing image alpha
     func keyBoardMove (moveUp: Bool) -> Void {
@@ -262,7 +268,7 @@ class MemberViewController: UIViewController,
     }
 //*/
     
-//*    
+//*
     //  Bob 1 - SLIDE 18:  Validate E-Mail format
     func isValidEmail(testStr:String) -> Bool {
         // print("validate calendar: \(testStr)")
@@ -273,77 +279,14 @@ class MemberViewController: UIViewController,
     }
 //*/
 
-}    // last curly braces for MemberViewController
+}    // last curly braces for MemberViewController   =================================================
 
 
 //                END OF BOB 1
 
 
 
-//      RESERVED for BOB 2
-/*
-    //
-    func screenWidth () -> CGFloat {
-        // returns screen width in pixels
-        let screenSize = UIScreen.main.bounds
-        var w = screenSize.width
-        let h = screenSize.height
-        print ("WIDTH:  \(w)   height:  \(h)")
-        if w > h {          // Corrects in case landscape mode
-            w = h
-        }
-        print ("WIDTH:  \(w)")
-        return w
-        
-    }
-*/
 
 
-//  ====================================================
-    
-    
-    
-    
-    // MARK: -  Testing he delegate
-/*
-     @IBAction func saveColor(_ sender: UIBarButtonItem) {
-     //  Test with if statement
-     if (delegate != nil) {
-     delegate!.myVCDidFinish( controller: self, text: colorLabel!.text!)
-     }
-     }
-*/
-    
-/*
-     @IBAction func saveColor(_ sender: UIBarButtonItem) {
-     //  Test with Guard statement
-     guard  let delegate = self.delegate else {
-     print ("Delegate not set")
-     return
-     }
-     delegate.myVCDidFinish(controller: self, text: colorLabel!.text!)
-     }
-*/
-    
-    
-    
-    
-    /* MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     print ("segueID:  \(segue.identifier)")
-     if segue.identifier == "saveColor" {
-     let vc = segue.destination as! AphaViewController
-     vc.colorLabel.text = colorLabel.text!
-     }
-     }
-     
-     */
-    
-/*
- let x: CGFloat
- x = screenWidth()
- print ("WIDTH:  \(x)")
- */
+
+

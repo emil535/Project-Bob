@@ -4,12 +4,12 @@
 //
 //  Created by Emil Safier on 1/20/17.
 //  Copyright © 2017 Emil Safier. All rights reserved.
-//
+//  This is a STARTING POINT for those following the lecture for Bob-1
 
 import Foundation
 
 
-
+/*
 class Member {
     var imageName: String!       // image name of member
     var name: String          // name of Member
@@ -18,7 +18,6 @@ class Member {
     var eMail: String?         // e-Mail address
     var level: String?          // swift level  Beginner, Novice, Qualified, Expert
     var dateJoined: String?
-    
     init(
         name: String,
         status: Int
@@ -30,34 +29,10 @@ class Member {
         self.status = status
         //   self.eMail = eMail
     }
-    
-    let typeOfStatus = ["Guest", "Member", "Presenter", "Organizer"]
-    let swiftLevel = [ "Beginner", "Novice", "Experienced", "Expert", "Swift Guru"]
-    
-    func statusDescription (status: Float) -> String {
-        var des: String
-        switch status {
-        case 0.0..<0.5:
-            des = "SWIFT Beginner"
-            print ("new   \(des)")
-        case 0.5..<2.0:
-            des = "SWIFT Novice"
-            print ("novice   \(des)")
-        case 2.0..<3.5:
-            des = "SWIFT Qualified"
-            print ("experienced   \(des)")
-        case 3.5..<4.0:
-            des = "SWIFT Expert"
-            print ("expert   \(des)")
-        default:
-            des = "Clueless"
-            print ("default       \(des)"   )
-        }
-        print ("VALUE of des:  \(des)")
-        return des
-    }
 }
+*/
 
+//  Bob 1 - SLIDE 9
 let status = ["Guest", "Member", "Presenter", "Organizer"]
 
 

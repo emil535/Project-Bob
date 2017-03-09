@@ -26,7 +26,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iR5-3y-tFn" userLabel="Image Stack View">
                                 <rect key="frame" x="36" y="34" width="300" height="333"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="college girl - large" translatesAutoresizingMaskIntoConstraints="NO" id="Ojk-Na-msN">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No Image" translatesAutoresizingMaskIntoConstraints="NO" id="Ojk-Na-msN">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="300" id="C5L-3H-3Xp"/>
@@ -149,6 +149,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="college girl - large" width="1200" height="1200"/>
+        <image name="No Image" width="300" height="300"/>
     </resources>
 </document>
