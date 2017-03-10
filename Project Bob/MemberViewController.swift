@@ -27,12 +27,12 @@ class MemberViewController: UIViewController,
 //   let memberStatusPicker = UIPickerView()     //  Bob 1 - SLIDE 8:
 //   let memberJoinDatePicker = UIDatePicker()   //  Bob 1 - SLIDE 10:
     
-/*
+//*
     // Bob 1 - SLIDE 11:   Animate constraint & image outlets
     @IBOutlet weak var memberImage: UIImageView!
     @IBOutlet weak var constraintTextStackBottom: NSLayoutConstraint!
     var constraintInitially: CGFloat?  //constraintTextStackBottom.constant
-*/
+//*/
     
     @IBOutlet weak var memberName: UITextField!
     @IBOutlet weak var memberCity: UITextField!
