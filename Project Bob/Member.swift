@@ -7,6 +7,8 @@
 //
 
 import Foundation
+//*
+//  Bob-2  SLIDE 4 - Add Member Class in Model
 class Member {
     var name: String        // name of Member
     var city: String?       // city of member
@@ -35,21 +37,27 @@ class Member {
         self.imageName = imageName
     }
 }
+//*/
 
-//
+//*
+//  Bob-2  SLIDE 4 - Sample data
+let sampleMembers = [
+    Member(name: "LucyB",
+           city: "Los Angeles",
+           eMail: "LucyFinkel@Aol.com",
+           status: 0,
+           level: 3,
+           dateJoined: "Jan 22, 2016",
+           imageName: "college girl"),
+    Member(name: "Bob", city: "Santa Monica", eMail: "Bob105@Gmail.com", status: 1, level: 2, dateJoined: "Feb 14, 2017", imageName: "college guy")
+]
+//*/
+
+//*
+//  Bob-2  SLIDE 5 - Add array for Swift Level, and Array of Arrays
 let status = ["Guest", "Member", "Presenter", "Organizer"]
 let swiftLevel = [ "Beginner", "Novice", "Experienced", "Expert", "Swift Guru"]
-let memberInfo = [status, swiftLevel]
-
 // Array consisting of two arrays representing choices for status and level of member
+let memberInfo = [status, swiftLevel]
+//*/
 
-let sampleMembers = [
-Member(name: "LucyB",
-       city: "Los Angeles",
-       eMail: "LucyFinkel@Aol.com",
-       status: 0,
-       level: 3,
-       dateJoined: "Jan 22, 2016",
-       imageName: "college girl"),
-Member(name: "Bob", city: "Santa Monica", eMail: "Bob105@Gmail.com", status: 1, level: 2, dateJoined: "Feb 14, 2017", imageName: "college guy")
-]

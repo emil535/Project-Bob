@@ -13,20 +13,19 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     
     // MARK: - Properties & Outlets
     
-    //  datePicker and Picker
-    let newMember: Bool = true
+//*  
+    //  Bob-2  SLIDE 6 - Add member or edit member
+    let newMember: Bool = false
     let defaultStatus = 0           // Guest
     let defaultSwiftLevel = 0       // Beginner
-
+    
+    // sample data, used when editing existing member
+    let thisMember = sampleMembers[1]
+//*/
+    
+    //  datePicker and Picker
     let memberStatusPicker = UIPickerView()
     let memberJoinDatePicker = UIDatePicker()
-    
-   // let thismember =  Member(name: nil, city: nil, eMail: nil, status: nil, level: nil, imageName: nil, dateJoined: nil)
-    
-     let thisMember = sampleMembers[1]       // sample data
-    
-    // RESERVED for Bob 2 - Instance of Member class - Which is defined in the Member.Swift file
-    // let thisMember = Member(name: "", status: 0)
     
     //    Animate
     @IBOutlet weak var memberImage: UIImageView!
@@ -58,11 +57,14 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
 
         
         
-        //  RESERVED for BOB 2
-        //  put selected member data into display
+        //  Instances of DateFormatter() create string representations of NSDate objects,
+        //  and convert textual representations of dates and times into NSDate objects.
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .none
+        
+//*
+        //  Bob-2  SLIDE 7 - put new member default data into display
         if newMember {
             // no image
             memberImage.image = UIImage(named: "No Image")
@@ -70,19 +72,23 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             // set Member values to default setting
             thisMember.status = defaultStatus
             thisMember.level = defaultSwiftLevel
-            
             memberStatus.text = status[defaultStatus]  + " - " + swiftLevel[defaultSwiftLevel]
             //  matching settings on Status Picker
-            memberStatusPicker.selectRow(defaultStatus, inComponent: 0, animated: true)  // default: member
-            memberStatusPicker.selectRow(defaultSwiftLevel, inComponent: 1, animated: true)  // default: novice
+            memberStatusPicker.selectRow(defaultStatus, inComponent: 0, animated: true)
+            memberStatusPicker.selectRow(defaultSwiftLevel, inComponent: 1, animated: true)
             // initialize date picker at todays date
             let dateCurrent = Date()
             memberJoinDatePicker.date = dateCurrent         // set picker to current date
-            memberJoinDatePicker.datePickerMode = UIDatePickerMode.date    //  display date (only)
-            memberJoinDate?.text = formatter.string(from: dateCurrent)//
+            memberJoinDatePicker.datePickerMode = UIDatePickerMode.date  //  display date (only)
+            memberJoinDate?.text = formatter.string(from: dateCurrent)
             thisMember.dateJoined = (memberJoinDate?.text)!     // member value to default setting
-        } else {
- //*        
+        }
+            
+//*/
+        
+//*
+        //  Bob-2  SLIDE 8 - current member sample data into display
+        else {
             memberImage.image = UIImage(named: thisMember.imageName!)
             memberName.text = thisMember.name
             memberCity.text = thisMember.city
@@ -93,27 +99,14 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             memberStatusPicker.selectRow(thisMember.level, inComponent: 1, animated: true)
             // joinDate on Date Picker
             memberJoinDate.text = thisMember.dateJoined
-            
-            
+
             let joinDate = thisMember.dateJoined ?? formatter.string(from: Date())
             memberJoinDatePicker.date = (formatter.date(from: joinDate))!
             memberJoinDatePicker.datePickerMode = UIDatePickerMode.date
             memberJoinDate?.text = joinDate
-        //    let joinDate = thisMember.dateJoined ?? formatter.string(from: Date())
-         //   memberJoinDate.text = joinDate
- //*/
         }
-        //  RESERVED for BOB 2
-        //  if join date is nil then default it to today's date
-        //  set default date to current date
-        
-        //  Instances of NSDateFormatter create string representations of NSDate objects, 
-        //  and convert textual representations of dates and times into NSDate objects.
-       
-        //  formatter.dateStyle = .long
+ //*/
 
-
-        
         //  Tap ends edit session
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
         
