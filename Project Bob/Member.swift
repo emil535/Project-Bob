@@ -42,14 +42,16 @@ class Member {
 //*
 //  Bob-2  SLIDE 4 - Sample data
 let sampleMembers = [
-    Member(name: "LucyB",
+    Member(name: "Lucy Bodacious",
            city: "Los Angeles",
            eMail: "LucyFinkel@Aol.com",
            status: 0,
            level: 3,
            dateJoined: "Jan 22, 2016",
            imageName: "college girl"),
-    Member(name: "Bob", city: "Santa Monica", eMail: "Bob105@Gmail.com", status: 1, level: 2, dateJoined: "Feb 14, 2017", imageName: "college guy")
+    Member(name: "Bob Loquacious", city: "Santa Monica", eMail: "Bob105@Gmail.com", status: 1, level: 2, dateJoined: "Feb 14, 2017", imageName: "college guy"),
+    Member(name: " Fenster Hinklebottom", city: "Tokyo", eMail: "Fenster502@Gmail.com", status: 2, level: 4, dateJoined: "June 14, 2017", imageName: "man in sweather"),
+    Member(name: "Minerva Finkle", city: "Santa Monica", eMail: "Minni@Gmail.com", status: 0, level: 0, dateJoined: "Feb 14, 2017", imageName: "white haired lady")
 ]
 //*/
 
