@@ -49,13 +49,23 @@ class MembersTableViewController: UITableViewController {
 
 //*
     //  Bob-2  SLIDE 12 - dequeue Reusable Cell
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> MemberTableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath) as! MemberTableViewCell
         // Configure the cell...
         let member = sampleMembers[indexPath.row]
+        
+        cell.memberNameLabel.text = member.name
+        cell.memberCityLabel.text = member.city!
+        cell.memberStatusLabel.text = status[ member.status]
+        cell.memberSwiftLevelLabel.text = swiftLevel[member.level]
+        cell.memberImage.image = UIImage(named: member.imageName! )
+        
+        
+/*
         cell.textLabel?.text =  member.name
         cell.detailTextLabel?.text = member.city! + "      " + status[ member.status]  + " - " + swiftLevel[member.level]
         cell.imageView?.image = UIImage(named: member.imageName! )
+*/
         return cell
     }
 //*/s

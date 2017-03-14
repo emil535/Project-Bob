@@ -8,8 +8,19 @@
 
 import UIKit
 
+
+
 class MemberTableViewCell: UITableViewCell {
 
+//  MARK: - Outlets
+    
+    @IBOutlet weak var memberImage: UIImageView!
+    @IBOutlet weak var memberNameLabel: UILabel!
+    @IBOutlet weak var memberCityLabel: UILabel!
+    @IBOutlet weak var memberStatusLabel: UILabel!
+    @IBOutlet weak var memberSwiftLevelLabel: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

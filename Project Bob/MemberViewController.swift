@@ -20,7 +20,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     let defaultSwiftLevel = 0       // Beginner
     
     // sample data, used when editing existing member
-    let thisMember = sampleMembers[1]
+    let thisMember = sampleMembers[0]
 //*/
     
     //  datePicker and Picker
@@ -113,9 +113,18 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         //  Add observer in Notification Center
         let center = NotificationCenter.default
         center.addObserver(self,
+                          // self.keyboardWillHide(),
                            selector: #selector(keyboardWillHide),
                            name: .UIKeyboardWillHide,
                            object: nil)
+//*
+        //  Bob-2  SLIDE ## - Add observer when keyboard shows
+        center.addObserver(self,
+                           selector: #selector(keyboardWillShow),
+                           name: .UIKeyboardWillShow,
+                           object: nil)
+//*/
+        
     }   // end viewDidLoad
     
     override func didReceiveMemoryWarning() {
@@ -152,9 +161,12 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     
     //  textFieldDidBeginEditing
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        //  Animate
+        
+/*
+        //  Bob-2  SLIDE ## - Animate - DELETED !!
         if constraintTextStackBottom.constant == constraintInitially {
             keyBoardMove (moveUp: true) }
+*/
         //   active field is red
         textField.textColor = UIColor.red
         //   select text field which is being edited
@@ -236,14 +248,24 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     }
     
     //  MARK: - Support functions
-    //  notification action
-    func keyboardWillHide() -> Void {
-        keyBoardMove(moveUp: false)
+//*
+    //  Bob-2  SLIDE ## - notification action Will Hide
+    func keyboardWillHide(notification:NSNotification) -> Void {
+        keyBoardMove(moveUp: false, notification: notification)
     }
+
+    //  notification action Will Show
+    func keyboardWillShow(notification:NSNotification) -> Void {
+        keyBoardMove(moveUp: true , notification: notification)
+    }
+//*/
+    
     
     //  Animate for Keyboard
     //  NOTE:  hide image and move (stack of) text fields out of the way by
     //         modifying the constraint on the text stack and changing image alpha
+
+/*  UPDATED THIS VERSION
     func keyBoardMove (moveUp: Bool) -> Void {
         var alpha: CGFloat
         var constraint: CGFloat
@@ -267,6 +289,41 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
                                 },
                             completion: nil )
     }
+*/
+    //  , notification: NSNotification
+//*
+    // Bob-2  SLIDE ## - now includes computation of keyboard size using notification info
+    func keyBoardMove (moveUp: Bool, notification: NSNotification) -> Void {
+        //  use NSNotification.userInfo dictionary to get keyboard size
+        var userInfo = notification.userInfo!
+        let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! CGRect)
+        let stackMove = keyboardFrame.height
+        print("Stack MOVE: \(stackMove)")
+        var alpha: CGFloat
+        var constraint: CGFloat
+        print ( "KEYBOARD UP:  \(moveUp) "    )
+        if moveUp {
+            alpha = 0.1
+            constraint =  stackMove + 10}
+        else {
+            alpha = 1.0
+            constraint =  self.constraintInitially!
+        }
+        let animInterval = 20.0
+        let delay = 0.0
+        print ("ALPHA: \(alpha)   CONSTRAIN: \(constraint)  ANIM:  \(animInterval)   DELAY:  \(delay)" )
+        UIView.animate (withDuration: animInterval,
+                        delay: delay,
+                        options: .transitionCrossDissolve, //.curveEaseIn ,
+                        animations: { () -> Void in
+                            self.memberImage.alpha = alpha
+                            self.constraintTextStackBottom.constant = constraint
+                            self.view.layoutIfNeeded()
+                            },
+                        completion: nil )
+    }
+//*/
+    
     
     //  Validate E-Mail format
     func isValidEmail(testStr:String) -> Bool {
