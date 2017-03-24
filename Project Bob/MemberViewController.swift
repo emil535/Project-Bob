@@ -20,8 +20,14 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     let defaultSwiftLevel = 0       // Beginner
     
     // sample data, used when editing existing member
-    let thisMember = sampleMembers[0]
+
+    let thisMember = sampleMembers[3]
 //*/
+    
+    
+//*
+    //  Bob-2  SLIDE 27 - instance of a member
+    let member = Member(name: "", city: nil, eMail: nil, status: 0, level: 0, dateJoined: nil, image: nil)
     
     //  datePicker and Picker
     let memberStatusPicker = UIPickerView()
@@ -70,8 +76,8 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             memberImage.image = UIImage(named: "No Image")
             // default value for pickerView
             // set Member values to default setting
-            thisMember.status = defaultStatus
-            thisMember.level = defaultSwiftLevel
+            member.status = defaultStatus
+            member.level = defaultSwiftLevel
             memberStatus.text = status[defaultStatus]  + " - " + swiftLevel[defaultSwiftLevel]
             //  matching settings on Status Picker
             memberStatusPicker.selectRow(defaultStatus, inComponent: 0, animated: true)
@@ -81,7 +87,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             memberJoinDatePicker.date = dateCurrent         // set picker to current date
             memberJoinDatePicker.datePickerMode = UIDatePickerMode.date  //  display date (only)
             memberJoinDate?.text = formatter.string(from: dateCurrent)
-            thisMember.dateJoined = (memberJoinDate?.text)!     // member value to default setting
+            member.dateJoined = (memberJoinDate?.text)!     // member value to default setting
         }
             
 //*/
@@ -89,7 +95,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
 //*
         //  Bob-2  SLIDE 8 - current member sample data into display
         else {
-            memberImage.image = UIImage(named: thisMember.imageName!)
+            memberImage.image =  thisMember.image!    //  Bob-2  SLIDE 26 -
             memberName.text = thisMember.name
             memberCity.text = thisMember.city
             memberEMail.text = thisMember.eMail
@@ -118,7 +124,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
                            name: .UIKeyboardWillHide,
                            object: nil)
 //*
-        //  Bob-2  SLIDE ## - Add observer when keyboard shows
+        //  Bob-2  SLIDE 21 - Add observer when keyboard shows
         center.addObserver(self,
                            selector: #selector(keyboardWillShow),
                            name: .UIKeyboardWillShow,
@@ -163,7 +169,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
 /*
-        //  Bob-2  SLIDE ## - Animate - DELETED !!
+        //  Bob-2  SLIDE 21 - Animate - DELETED !!
         if constraintTextStackBottom.constant == constraintInitially {
             keyBoardMove (moveUp: true) }
 */
@@ -203,6 +209,17 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     func textFieldDidEndEditing(_ textField: UITextField) {
         print ("END EDITING")
         switch textField {
+//*
+        // Bob-2  SLIDE 25 - validate name & city
+        case memberName, memberCity:
+            let name = memberName.text!
+            print ("END EDIT:  Name")
+            if isValidName(testStr: name) {
+                textField.textColor = UIColor.black
+            } else {
+                print ("INVALID:  \(name) ")
+            }
+//*/
         case memberEMail:
             print ("END EDIT:  E-Mail")
             if isValidEmail(testStr: memberEMail.text!) {
@@ -221,6 +238,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         memberJoinDate?.text! = formatter.string(from: sender.date)
+        member.dateJoined = memberJoinDate?.text!
     }
     
     //  MARK:  PickerView protocols
@@ -240,16 +258,17 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     //  Assign selection made by pickerView to textField
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
-            thisMember.status = row
+            member.status = row
+            // print("ROW:   ~~\(row)~~   ++\(component)++    **\(member.status)**")
         } else {
-            thisMember.level = row
+            member.level = row
         }
-        memberStatus.text = memberInfo[0][thisMember.status] + " - " +  memberInfo[1][thisMember.level]  // update UI
+        memberStatus.text = memberInfo[0][(member.status)] + " - " +  memberInfo[1][(member.level)]  // update UI
     }
     
     //  MARK: - Support functions
 //*
-    //  Bob-2  SLIDE ## - notification action Will Hide
+    //  Bob-2  SLIDE 21 - notification action Will Hide
     func keyboardWillHide(notification:NSNotification) -> Void {
         keyBoardMove(moveUp: false, notification: notification)
     }
@@ -292,7 +311,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
 */
     //  , notification: NSNotification
 //*
-    // Bob-2  SLIDE ## - now includes computation of keyboard size using notification info
+    // Bob-2  SLIDE 22 - now includes computation of keyboard size using notification info
     func keyBoardMove (moveUp: Bool, notification: NSNotification) -> Void {
         //  use NSNotification.userInfo dictionary to get keyboard size
         var userInfo = notification.userInfo!
@@ -301,7 +320,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         print("Stack MOVE: \(stackMove)")
         var alpha: CGFloat
         var constraint: CGFloat
-        print ( "KEYBOARD UP:  \(moveUp) "    )
+        print ( "KEYBOARD UP:  \(moveUp) "  )
         if moveUp {
             alpha = 0.1
             constraint =  stackMove + 10}
@@ -324,17 +343,31 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     }
 //*/
     
-    
+    //  NOTE:  A Regex (sometimes called a rational expression) is a sequence of characters that define a search pattern.
+    //          ref.  https://msdn.microsoft.com/en-us/library/az24scfc(v=vs.110).aspx
     //  Validate E-Mail format
     func isValidEmail(testStr:String) -> Bool {
-        // print("validate calendar: \(testStr)")
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+         print("testStr:  \(testStr)     emailTest:  \(emailTest) ")
         return emailTest.evaluate(with: testStr)
     }
-
-}    // last curly braces for MemberViewController
+//*
+    // Bob-2  SLIDE 25 - Validate Name format (characters and numbers; max min size)
+    func isValidName(testStr:String) -> Bool {
+        let nameRegEx = "[A-Z0-9a-z\\s]{4,18}"
+        let nameTest = NSPredicate(format:"SELF MATCHES %@", nameRegEx)
+        return nameTest.evaluate(with: testStr)
+//*/
+        /*
+         [A-Z0-9a-z]    valid match for any letter or number in the ranges shown
+         \s             matches any white space character;  note that \ is an escape so we need a 2nd \
+         {n,m}          matches the previous element at least n times but no more than m times
+                 print("testStr:  \(testStr)     nameTest:  \(nameTest) ")
+        */
+    }
+    
 
 
 
@@ -342,22 +375,6 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
 
 
 //      RESERVED for BOB 2
-/*
-    //
-    func screenWidth () -> CGFloat {
-        // returns screen width in pixels
-        let screenSize = UIScreen.main.bounds
-        var w = screenSize.width
-        let h = screenSize.height
-        print ("WIDTH:  \(w)   height:  \(h)")
-        if w > h {          // Corrects in case landscape mode
-            w = h
-        }
-        print ("WIDTH:  \(w)")
-        return w
-        
-    }
-*/
 
 
 //  ====================================================
@@ -369,18 +386,42 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     
     
     
-    /* MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     print ("segueID:  \(segue.identifier)")
-     if segue.identifier == "saveColor" {
-     let vc = segue.destination as! AphaViewController
-     vc.colorLabel.text = colorLabel.text!
-     }
-     }
-     
-     */
+    //* MARK: - Navigation
+//*
+    
+    @IBAction func cancelMember(_ sender: UIBarButtonItem) {
+       dismiss(animated: true, completion: nil)
+    }
+    
+    
+    // Bob-2  SLIDE 27 - In a storyboard-based application, do a little preparation before navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print ("segueID:  \(segue.identifier)")
+      //  if segue.identifier == "saveMember" {
+            let vc = segue.destination as! MembersTableViewController
+        //    vc.colorLabel.text = colorLabel.text!
+            //  member
+            member.image = memberImage.image
+            member.name = memberName.text!
+            member.city = memberCity.text!
+            member.eMail = memberEMail.text!
+            // member.status and member.level are set by picker or defaults
+            // joinDate on Date Picker
+            member.dateJoined = memberJoinDate.text
+
+            print("=====================  NAME:  \(member.name)")
+            print("CITY:  \(member.city!)")
+            print("eMail:  \(member.eMail!)")
+            print("STATUS:  \(member.status)")
+            print("LEVEL:  \(member.level)")
+            print("JOINDATE:  \(member.dateJoined!)")
+            print("IMAGE:   \(member.image!)")
+      //  }
+    }
+//*/
+    
+     //*/
+}    // last curly braces for MemberViewController
     
 

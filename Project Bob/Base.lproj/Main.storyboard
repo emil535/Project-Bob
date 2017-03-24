@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="thF-pB-2Vj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="S0Y-4A-XjJ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -100,14 +100,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Members" id="lx5-CR-Wq3">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Gor-NT-UpF"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Gor-NT-UpF">
+                            <connections>
+                                <segue destination="thF-pB-2Vj" kind="presentation" identifier="displayMember" id="muM-Rr-hKA"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tKK-8Y-fa7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3500" y="-745.27736131934034"/>
         </scene>
-        <!--Add New Member-->
+        <!--New Member-->
         <scene sceneID="9pD-L9-bC7">
             <objects>
                 <viewController id="qnq-DP-lcu" customClass="MemberViewController" customModule="Project_Bob" customModuleProvider="target" sceneMemberID="viewController">
@@ -229,9 +233,17 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Add New Member" id="d7x-v3-xKs">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="u0F-g9-kja"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="XIb-X4-Kez"/>
+                    <navigationItem key="navigationItem" title="New Member" id="d7x-v3-xKs">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="u0F-g9-kja">
+                            <connections>
+                                <action selector="cancelMember:" destination="qnq-DP-lcu" id="vl3-QV-wXU"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="XIb-X4-Kez">
+                            <connections>
+                                <segue destination="BQj-5E-sa9" kind="unwind" unwindAction="unwindSaveMemberWithSender:" id="dQw-wz-hWs"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="constraintTextStackBottom" destination="HqJ-eD-AyX" id="O1e-nG-Uga"/>
@@ -244,6 +256,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NNh-hp-1zk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="BQj-5E-sa9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5272.8000000000002" y="-745.27736131934034"/>
         </scene>

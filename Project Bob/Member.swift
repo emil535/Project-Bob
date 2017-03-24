@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 //*
 //  Bob-2  SLIDE 4 - Add Member Class in Model
 class Member {
@@ -16,16 +17,15 @@ class Member {
     var status: Int         // 0, 1, 2, 3   Guest Member Presenter Organizer
     var level: Int          // swift level  Beginner, Novice, Qualified, Expert
     var dateJoined: String?
-    var imageName: String?  // image name of member
-    
+    var image: UIImage?     // image of member
     init(
         name: String,
         city: String?,
         eMail: String?,
         status: Int,
         level: Int,
-        dateJoined: String,
-        imageName: String?
+        dateJoined: String?,
+        image: UIImage?
         )
     {
         self.name = name
@@ -34,24 +34,43 @@ class Member {
         self.status = status
         self.level = level
         self.dateJoined = dateJoined
-        self.imageName = imageName
+        self.image = image
     }
 }
 //*/
 
 //*
 //  Bob-2  SLIDE 4 - Sample data
-let sampleMembers = [
+var sampleMembers = [
     Member(name: "Lucy Bodacious",
            city: "Los Angeles",
            eMail: "LucyFinkel@Aol.com",
            status: 0,
            level: 3,
            dateJoined: "Jan 22, 2016",
-           imageName: "college girl"),
-    Member(name: "Bob Loquacious", city: "Santa Monica", eMail: "Bob105@Gmail.com", status: 1, level: 2, dateJoined: "Feb 14, 2017", imageName: "college guy"),
-    Member(name: " Fenster Hinklebottom", city: "Tokyo", eMail: "Fenster502@Gmail.com", status: 2, level: 4, dateJoined: "June 14, 2017", imageName: "man in sweather"),
-    Member(name: "Minerva Finkle", city: "Santa Monica", eMail: "Minni@Gmail.com", status: 0, level: 0, dateJoined: "Feb 14, 2017", imageName: "white haired lady")
+           image: UIImage(named: "college girl")),
+    Member(name: " Fenster Hinklebottom",
+           city: "Tokyo",
+           eMail: "Fenster502@Gmail.com",
+           status: 2,
+           level: 4,
+           dateJoined: "June 14, 2017",
+           image: UIImage(named: "man in sweather")),
+    Member(name: "Bob Loquacious",
+            city: "Santa Monica",
+            eMail: "Bob105@Gmail.com",
+            status: 1,
+            level: 2,
+            dateJoined: "Feb 14, 2017",
+            image: UIImage(named: "college guy")),
+
+    Member(name: "Minerva Finkle",
+           city: "Santa Monica",
+           eMail: "Minni@Gmail.com",
+           status: 0,
+           level: 0,
+           dateJoined: "Feb 14, 2017",
+           image: UIImage(named: "white haired lady"))
 ]
 //*/
 

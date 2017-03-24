@@ -15,6 +15,10 @@ class MembersTableViewController: UITableViewController {
  //   @IBOutlet weak var infoLabel: UILabel!
  //   @IBOutlet weak var memberImage: UIImageView!
     
+    
+    //  Array of Members
+    var members = [Member]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,6 +36,24 @@ class MembersTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // MARK: - Actions
+    
+    @IBAction func unwindSaveMember(sender: UIStoryboardSegue) {
+        print ("SAVE button pressed")
+        if let sourceViewController = sender.source as? MemberViewController  {
+            let member = sourceViewController.member
+            // Add new member
+            let newIndexPath = IndexPath(row: sampleMembers.count, section: 0)
+            print("MEMBER COUNT:  \(sampleMembers.count)")
+            sampleMembers.append(member)
+            print("+MEMBER COUNT:  \(sampleMembers.count)")
+            print("INDEXPATH: \(newIndexPath) ")
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+        }
+    }
+
+    
+    
     // MARK: - Table view data source
     
 //*
@@ -58,7 +80,7 @@ class MembersTableViewController: UITableViewController {
         cell.memberCityLabel.text = member.city!
         cell.memberStatusLabel.text = status[ member.status]
         cell.memberSwiftLevelLabel.text = swiftLevel[member.level]
-        cell.memberImage.image = UIImage(named: member.imageName! )
+        cell.memberImage.image = member.image!
         
         
 /*
