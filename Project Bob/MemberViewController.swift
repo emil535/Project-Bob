@@ -15,13 +15,16 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     
 //*  
     //  Bob-2  SLIDE 6 - Add member or edit member
-    let newMember: Bool = false
+    var newMember: Bool = true
     let defaultStatus = 0           // Guest
     let defaultSwiftLevel = 0       // Beginner
     
+    var memberNameBool: Bool = false
+    var memberEmailBool: Bool = false
+    
     // sample data, used when editing existing member
 
-    let thisMember = sampleMembers[3]
+    var thisMember: Member?
 //*/
     
     
@@ -42,6 +45,9 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     @IBOutlet weak var memberEMail: UITextField!
     @IBOutlet weak var memberStatus: UITextField!
     @IBOutlet weak var memberJoinDate: UITextField!
+    //    Save Button
+    @IBOutlet weak var saveBarButton: UIBarButtonItem!
+    
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,14 +61,9 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         self.memberStatusPicker.delegate = self
         self.memberStatusPicker.dataSource = self
 
-        
-  
-
         // constraint initial value
         constraintInitially = self.constraintTextStackBottom.constant
 
-        
-        
         //  Instances of DateFormatter() create string representations of NSDate objects,
         //  and convert textual representations of dates and times into NSDate objects.
         let formatter = DateFormatter()
@@ -71,7 +72,13 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         
 //*
         //  Bob-2  SLIDE 7 - put new member default data into display
+        //  save Button always initially disabled
+        saveBarButton.isEnabled = false
         if newMember {
+            //  set initial state for changes
+            memberNameBool = false
+            memberEmailBool = false
+            
             // no image
             memberImage.image = UIImage(named: "No Image")
             // default value for pickerView
@@ -95,18 +102,20 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
 //*
         //  Bob-2  SLIDE 8 - current member sample data into display
         else {
-            memberImage.image =  thisMember.image!    //  Bob-2  SLIDE 26 -
-            memberName.text = thisMember.name
-            memberCity.text = thisMember.city
-            memberEMail.text = thisMember.eMail
-            memberStatus.text = status[thisMember.status]  + " - " + swiftLevel[thisMember.level]
+            memberNameBool = true
+            memberEmailBool = true
+            memberImage.image =  thisMember!.image!    //  Bob-2  SLIDE 26 -
+            memberName.text = thisMember!.name
+            memberCity.text = thisMember!.city
+            memberEMail.text = thisMember!.eMail
+            memberStatus.text = status[thisMember!.status]  + " - " + swiftLevel[thisMember!.level]
             // picked value for pickerView
-            memberStatusPicker.selectRow(thisMember.status, inComponent: 0, animated: true)
-            memberStatusPicker.selectRow(thisMember.level, inComponent: 1, animated: true)
+            memberStatusPicker.selectRow(thisMember!.status, inComponent: 0, animated: true)
+            memberStatusPicker.selectRow(thisMember!.level, inComponent: 1, animated: true)
             // joinDate on Date Picker
-            memberJoinDate.text = thisMember.dateJoined
+            memberJoinDate.text = thisMember!.dateJoined
 
-            let joinDate = thisMember.dateJoined ?? formatter.string(from: Date())
+            let joinDate = thisMember!.dateJoined ?? formatter.string(from: Date())
             memberJoinDatePicker.date = (formatter.date(from: joinDate))!
             memberJoinDatePicker.datePickerMode = UIDatePickerMode.date
             memberJoinDate?.text = joinDate
@@ -203,11 +212,14 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         default:
            break
         }
+
     }
 
     //  validate data and indicate editing is done
     func textFieldDidEndEditing(_ textField: UITextField) {
         print ("END EDITING")
+        //
+
         switch textField {
 //*
         // Bob-2  SLIDE 25 - validate name & city
@@ -216,8 +228,13 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             print ("END EDIT:  Name")
             if isValidName(testStr: name) {
                 textField.textColor = UIColor.black
+                memberNameBool = true
+                print ("VALID:  \(name) ")
+                print ("***** NAME:  \(memberNameBool)")
             } else {
                 print ("INVALID:  \(name) ")
+                memberNameBool = false
+                print ("***** NAME:  \(memberNameBool)")
             }
 //*/
         case memberEMail:
@@ -225,12 +242,18 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             if isValidEmail(testStr: memberEMail.text!) {
                 print ("e-Mail:  \(memberEMail.text!)")
                 textField.textColor = UIColor.black
+                
+                memberEmailBool = true
             } else {
                 print ("INVALID:  \(memberEMail.text!) ")
+                memberEmailBool = false
             }
         default:
             textField.textColor = UIColor.black
         }
+        // enable Save Button
+        saveBarButton.isEnabled = memberNameBool && memberEmailBool
+        print("BUTTON:  \(saveBarButton.isEnabled)  NAME:   \(memberNameBool)    EMAIL:  \(memberEmailBool)")
     }
     
     // MARK:  Date Picker
@@ -271,12 +294,16 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     //  Bob-2  SLIDE 21 - notification action Will Hide
     func keyboardWillHide(notification:NSNotification) -> Void {
         keyBoardMove(moveUp: false, notification: notification)
+
+        
     }
 
     //  notification action Will Show
     func keyboardWillShow(notification:NSNotification) -> Void {
         keyBoardMove(moveUp: true , notification: notification)
     }
+    
+
 //*/
     
     
@@ -397,7 +424,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     // Bob-2  SLIDE 27 - In a storyboard-based application, do a little preparation before navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print ("segueID:  \(segue.identifier)")
+      
       //  if segue.identifier == "saveMember" {
             let vc = segue.destination as! MembersTableViewController
         //    vc.colorLabel.text = colorLabel.text!

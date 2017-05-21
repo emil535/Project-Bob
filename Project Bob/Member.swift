@@ -16,7 +16,8 @@ class Member {
     var eMail: String?      // e-Mail address
     var status: Int         // 0, 1, 2, 3   Guest Member Presenter Organizer
     var level: Int          // swift level  Beginner, Novice, Qualified, Expert
-    var dateJoined: String?
+    var dateJoined: String?     // Bob-2  SLIDE 26 - change image variable name to UIImage type
+    // var imageName: String     // image name of member  [ CORRECTION ]
     var image: UIImage?     // image of member
     init(
         name: String,
@@ -25,6 +26,7 @@ class Member {
         status: Int,
         level: Int,
         dateJoined: String?,
+        // imageName: String?   //  [ CORRECTION ]
         image: UIImage?
         )
     {
@@ -34,6 +36,7 @@ class Member {
         self.status = status
         self.level = level
         self.dateJoined = dateJoined
+        // self.imageName = imageName   //  [ CORRECTION ]
         self.image = image
     }
 }
@@ -44,10 +47,11 @@ class Member {
 var sampleMembers = [
     Member(name: "Lucy Bodacious",
            city: "Los Angeles",
-           eMail: "LucyFinkel@Aol.com",
+           eMail: "LucyBod@Aol.com",
            status: 0,
            level: 3,
            dateJoined: "Jan 22, 2016",
+           // imageName: "college girl")),  //  [ CORRECTION ]
            image: UIImage(named: "college girl")),
     Member(name: " Fenster Hinklebottom",
            city: "Tokyo",

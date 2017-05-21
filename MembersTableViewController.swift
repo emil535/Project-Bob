@@ -9,12 +9,12 @@
 import UIKit
 
 class MembersTableViewController: UITableViewController {
-
+/*
     //  Bob-2  SLIDE 11 - Outlets for Cell Style: SubTitle
- //   @IBOutlet weak var nameLabel: UILabel!
- //   @IBOutlet weak var infoLabel: UILabel!
- //   @IBOutlet weak var memberImage: UIImageView!
-    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var memberImage: UIImageView!
+ */
     
     //  Array of Members
     var members = [Member]()
@@ -27,7 +27,7 @@ class MembersTableViewController: UITableViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // Uncomment the following line to display an Edit butvar in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
@@ -37,6 +37,11 @@ class MembersTableViewController: UITableViewController {
     }
 
     // MARK: - Actions
+    
+    @IBAction func unwindCancel(sender: UIStoryboardSegue){
+        print("CANCEL button pressed")
+     
+    }
     
     @IBAction func unwindSaveMember(sender: UIStoryboardSegue) {
         print ("SAVE button pressed")
@@ -75,22 +80,25 @@ class MembersTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath) as! MemberTableViewCell
         // Configure the cell...
         let member = sampleMembers[indexPath.row]
-        
+      
+        print("ROW:  \(indexPath.row) \n NAME: \(member.name)")
+        //\n CITY:  \(member.city!) \n  STATUS:  \(member.status)")
+       
         cell.memberNameLabel.text = member.name
-        cell.memberCityLabel.text = member.city!
+        cell.memberCityLabel.text = member.city
         cell.memberStatusLabel.text = status[ member.status]
         cell.memberSwiftLevelLabel.text = swiftLevel[member.level]
         cell.memberImage.image = member.image!
+
         
-        
-/*
+/*      //  Bob-2  SLIDE 14 - remove references to Style Subtitle
         cell.textLabel?.text =  member.name
         cell.detailTextLabel?.text = member.city! + "      " + status[ member.status]  + " - " + swiftLevel[member.level]
-        cell.imageView?.image = UIImage(named: member.imageName! )
-*/
+        cell.imageView?.image = UIImage(named: member.imageName!)
+*/      //  14
         return cell
     }
-//*/s
+//*/    //  12
 
     /*
     // Override to support conditional editing of the table view.
@@ -127,14 +135,42 @@ class MembersTableViewController: UITableViewController {
     }
     */
 
-    /*
+    //*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print ("ID: \(segue.identifier ?? "**** none") ")
+      //  let targetVC = MemberViewController
+        if segue.identifier == "addMember" {
+            let navVC = segue.destination as? UINavigationController        // target in NavController
+            let targetVC = (navVC?.topViewController as? MemberViewController)!  // but we need ViewController
+            targetVC.newMember = true                                      // to access this Bool
+            targetVC.title = "Add Member"
+        } else {
+            let targetVC = segue.destination as? MemberViewController
+            targetVC?.newMember = false
+            targetVC?.title = "Edit Member"
+            // get info on selected cell
+            guard let selectedMemberCell = sender as? MemberTableViewCell else {
+                fatalError("Unexpected Sender:  \(sender )")
+            }
+            guard let indexPath =  tableView.indexPath(for: selectedMemberCell) else {
+                fatalError("The selected cell is not being displayed by the table")
+            }
+            let selectedMember = sampleMembers[indexPath.row]
+            targetVC?.thisMember = selectedMember
+            
+        }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+    
+
+    //*/
 
 }
+
+
+
+ 
