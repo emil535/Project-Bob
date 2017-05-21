@@ -64,6 +64,8 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
 
         // constraint initial value
         constraintInitially = self.constraintTextStackBottom.constant
+        
+     
 
         //  Instances of DateFormatter() create string representations of NSDate objects,
         //  and convert textual representations of dates and times into NSDate objects.
@@ -152,6 +154,8 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     // MARK: - Actions
     //  Image Picker Controller
     @IBAction func addImageButton(_ sender: UIButton) {
+        //  self.changeAnyBool = true    //   change made to photo
+        saveBarButton.isEnabled = memberNameBool && memberEmailBool // && changeAnyBool
         let photoPicker = UIImagePickerController()
         photoPicker.delegate = self
         photoPicker.sourceType = .photoLibrary
