@@ -21,43 +21,38 @@ class MembersTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit butvar in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Actions
     
     @IBAction func unwindCancel(sender: UIStoryboardSegue){
         print("CANCEL button pressed")
-     
-    }
+    }   // unwindCancel
     
     @IBAction func unwindSaveMember(sender: UIStoryboardSegue) {
         print ("SAVE button pressed")
         if let sourceViewController = sender.source as? MemberViewController  {
-            let member = sourceViewController.member
+            let member = sourceViewController.thisMember
+            
+            if let selectedIndexPath = self.tableView.indexPathForSelectedRow  {
+                sampleMembers[selectedIndexPath.row ] = member
+               // self.tableView.rectForRow(at: selectedIndexPath)
+                self.tableView.reloadRows(at: [selectedIndexPath], with: UITableViewRowAnimation.automatic)
+            } else {
             // Add new member
             let newIndexPath = IndexPath(row: sampleMembers.count, section: 0)
             print("MEMBER COUNT:  \(sampleMembers.count)")
             sampleMembers.append(member)
             print("+MEMBER COUNT:  \(sampleMembers.count)")
             print("INDEXPATH: \(newIndexPath) ")
-            tableView.insertRows(at: [newIndexPath], with: .automatic)
+            self.tableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
         }
-    }
-
-    
+    }    // unwindSave
     
     // MARK: - Table view data source
     
@@ -88,7 +83,7 @@ class MembersTableViewController: UITableViewController {
         cell.memberCityLabel.text = member.city
         cell.memberStatusLabel.text = status[ member.status]
         cell.memberSwiftLevelLabel.text = swiftLevel[member.level]
-        cell.memberImage.image = member.image!
+        cell.memberImage.image = member.image
 
         
 /*      //  Bob-2  SLIDE 14 - remove references to Style Subtitle
@@ -97,7 +92,7 @@ class MembersTableViewController: UITableViewController {
         cell.imageView?.image = UIImage(named: member.imageName!)
 */      //  14
         return cell
-    }
+    }    // tableView
 //*/    //  12
 
     /*
@@ -141,35 +136,40 @@ class MembersTableViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print ("ID: \(segue.identifier ?? "**** none") ")
-      //  let targetVC = MemberViewController
+        
         if segue.identifier == "addMember" {
-            let navVC = segue.destination as? UINavigationController        // target in NavController
-            let targetVC = (navVC?.topViewController as? MemberViewController)!  // but we need ViewController
-            targetVC.newMember = true                                      // to access this Bool
+            let navVC = segue.destination as? UINavigationController                // target in NavController
+            let targetVC = (navVC?.topViewController as? MemberViewController)!     // but we need ViewController
+            targetVC.newMember = true                                               // to access this Bool
             targetVC.title = "Add Member"
         } else {
             let targetVC = segue.destination as? MemberViewController
             targetVC?.newMember = false
             targetVC?.title = "Edit Member"
+            
             // get info on selected cell
-            guard let selectedMemberCell = sender as? MemberTableViewCell else {
-                fatalError("Unexpected Sender:  \(sender )")
+            guard let selectedMemberCell = sender as? MemberTableViewCell  else {
+                fatalError("Unexpected Sender")
             }
-            guard let indexPath =  tableView.indexPath(for: selectedMemberCell) else {
+            guard let indexPath =  self.tableView.indexPath(for: selectedMemberCell) else {
                 fatalError("The selected cell is not being displayed by the table")
             }
             let selectedMember = sampleMembers[indexPath.row]
             targetVC?.thisMember = selectedMember
             
-        }
+        }     // prepare
+    }
+
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    
+
+
+
 
     //*/
 
-}
+
 
 
 

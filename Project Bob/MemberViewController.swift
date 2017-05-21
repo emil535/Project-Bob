@@ -21,16 +21,17 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     
     var memberNameBool: Bool = false
     var memberEmailBool: Bool = false
+    var changeAnyBool: Bool = false
     
     // sample data, used when editing existing member
 
-    var thisMember: Member?
+    var thisMember = Member(name: "", city: nil, eMail: nil, status: 0, level: 0, dateJoined: nil, image: nil)
 //*/
     
     
 //*
     //  Bob-2  SLIDE 27 - instance of a member
-    let member = Member(name: "", city: nil, eMail: nil, status: 0, level: 0, dateJoined: nil, image: nil)
+  //  let member = Member(name: "", city: nil, eMail: nil, status: 0, level: 0, dateJoined: nil, image: nil)
     
     //  datePicker and Picker
     let memberStatusPicker = UIPickerView()
@@ -83,8 +84,8 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             memberImage.image = UIImage(named: "No Image")
             // default value for pickerView
             // set Member values to default setting
-            member.status = defaultStatus
-            member.level = defaultSwiftLevel
+            thisMember.status = defaultStatus
+            thisMember.level = defaultSwiftLevel
             memberStatus.text = status[defaultStatus]  + " - " + swiftLevel[defaultSwiftLevel]
             //  matching settings on Status Picker
             memberStatusPicker.selectRow(defaultStatus, inComponent: 0, animated: true)
@@ -94,7 +95,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             memberJoinDatePicker.date = dateCurrent         // set picker to current date
             memberJoinDatePicker.datePickerMode = UIDatePickerMode.date  //  display date (only)
             memberJoinDate?.text = formatter.string(from: dateCurrent)
-            member.dateJoined = (memberJoinDate?.text)!     // member value to default setting
+            thisMember.dateJoined = (memberJoinDate?.text)!     // member value to default setting
         }
             
 //*/
@@ -102,20 +103,21 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
 //*
         //  Bob-2  SLIDE 8 - current member sample data into display
         else {
+            //  LEFT:  views    RIGHT:  copy of membeer info in Table
             memberNameBool = true
             memberEmailBool = true
-            memberImage.image =  thisMember!.image!    //  Bob-2  SLIDE 26 -
-            memberName.text = thisMember!.name
-            memberCity.text = thisMember!.city
-            memberEMail.text = thisMember!.eMail
-            memberStatus.text = status[thisMember!.status]  + " - " + swiftLevel[thisMember!.level]
+            memberImage.image =  thisMember.image    //  Bob-2  SLIDE 26 -
+            memberName.text = thisMember.name
+            memberCity.text = thisMember.city
+            memberEMail.text = thisMember.eMail
+            memberStatus.text = status[thisMember.status]  + " - " + swiftLevel[thisMember.level]
             // picked value for pickerView
-            memberStatusPicker.selectRow(thisMember!.status, inComponent: 0, animated: true)
-            memberStatusPicker.selectRow(thisMember!.level, inComponent: 1, animated: true)
+            memberStatusPicker.selectRow(thisMember.status, inComponent: 0, animated: true)
+            memberStatusPicker.selectRow(thisMember.level, inComponent: 1, animated: true)
             // joinDate on Date Picker
-            memberJoinDate.text = thisMember!.dateJoined
+            memberJoinDate.text = thisMember.dateJoined
 
-            let joinDate = thisMember!.dateJoined ?? formatter.string(from: Date())
+            let joinDate = thisMember.dateJoined ?? formatter.string(from: Date())
             memberJoinDatePicker.date = (formatter.date(from: joinDate))!
             memberJoinDatePicker.datePickerMode = UIDatePickerMode.date
             memberJoinDate?.text = joinDate
@@ -184,6 +186,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
 */
         //   active field is red
         textField.textColor = UIColor.red
+        changeAnyBool = true    //  some change made to something
         //   select text field which is being edited
         switch textField {
         case memberName :
@@ -193,7 +196,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         case memberCity:
             print ("KEYBOARD:  Phone")
             textField.returnKeyType = UIReturnKeyType.done
-            textField.keyboardType = UIKeyboardType.namePhonePad
+            textField.keyboardType = UIKeyboardType.numbersAndPunctuation
         case memberEMail:
             print ( "KEYBOARD:  EMail ")
             textField.returnKeyType = UIReturnKeyType.done
@@ -252,7 +255,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             textField.textColor = UIColor.black
         }
         // enable Save Button
-        saveBarButton.isEnabled = memberNameBool && memberEmailBool
+        saveBarButton.isEnabled = memberNameBool && memberEmailBool && changeAnyBool
         print("BUTTON:  \(saveBarButton.isEnabled)  NAME:   \(memberNameBool)    EMAIL:  \(memberEmailBool)")
     }
     
@@ -261,7 +264,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         memberJoinDate?.text! = formatter.string(from: sender.date)
-        member.dateJoined = memberJoinDate?.text!
+        thisMember.dateJoined = memberJoinDate?.text!
     }
     
     //  MARK:  PickerView protocols
@@ -281,12 +284,12 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     //  Assign selection made by pickerView to textField
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
-            member.status = row
+            thisMember.status = row
             // print("ROW:   ~~\(row)~~   ++\(component)++    **\(member.status)**")
         } else {
-            member.level = row
+            thisMember.level = row
         }
-        memberStatus.text = memberInfo[0][(member.status)] + " - " +  memberInfo[1][(member.level)]  // update UI
+        memberStatus.text = memberInfo[0][(thisMember.status)] + " - " +  memberInfo[1][(thisMember.level)]  // update UI
     }
     
     //  MARK: - Support functions
@@ -383,7 +386,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
 //*
     // Bob-2  SLIDE 25 - Validate Name format (characters and numbers; max min size)
     func isValidName(testStr:String) -> Bool {
-        let nameRegEx = "[A-Z0-9a-z\\s]{4,18}"
+        let nameRegEx = "[A-Z0-9a-z\\s]{2,24}"
         let nameTest = NSPredicate(format:"SELF MATCHES %@", nameRegEx)
         return nameTest.evaluate(with: testStr)
 //*/
@@ -416,39 +419,39 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     //* MARK: - Navigation
 //*
     
-    @IBAction func cancelMember(_ sender: UIBarButtonItem) {
+ /*   @IBAction func cancelMember(_ sender: UIBarButtonItem) {
        dismiss(animated: true, completion: nil)
     }
-    
+ */
     
     // Bob-2  SLIDE 27 - In a storyboard-based application, do a little preparation before navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      
-      //  if segue.identifier == "saveMember" {
-            let vc = segue.destination as! MembersTableViewController
-        //    vc.colorLabel.text = colorLabel.text!
+        
+        super.prepare(for: segue, sender: sender)
+    
+    
             //  member
-            member.image = memberImage.image
-            member.name = memberName.text!
-            member.city = memberCity.text!
-            member.eMail = memberEMail.text!
+            thisMember.image = memberImage.image
+            thisMember.name = memberName.text!
+            thisMember.city = memberCity.text!
+            thisMember.eMail = memberEMail.text!
             // member.status and member.level are set by picker or defaults
             // joinDate on Date Picker
-            member.dateJoined = memberJoinDate.text
+            thisMember.dateJoined = memberJoinDate.text
 
-            print("=====================  NAME:  \(member.name)")
-            print("CITY:  \(member.city!)")
-            print("eMail:  \(member.eMail!)")
-            print("STATUS:  \(member.status)")
-            print("LEVEL:  \(member.level)")
-            print("JOINDATE:  \(member.dateJoined!)")
-            print("IMAGE:   \(member.image!)")
-      //  }
+            print("=====================  NAME:  \(thisMember.name)")
+            print("CITY:  \(thisMember.city!)")
+            print("eMail:  \(thisMember.eMail!)")
+            print("STATUS:  \(thisMember.status)")
+            print("LEVEL:  \(thisMember.level)")
+            print("JOINDATE:  \(thisMember.dateJoined!)")
+            print("IMAGE:   \(thisMember.image!)")
+       
     }
 //*/
     
-     //*/
+//*/
 }    // last curly braces for MemberViewController
     
 
