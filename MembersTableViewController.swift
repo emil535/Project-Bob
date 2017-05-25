@@ -32,9 +32,10 @@ class MembersTableViewController: UITableViewController {
     @IBAction func unwindCancel(sender: UIStoryboardSegue){
         print("CANCEL button pressed")
     }   // unwindCancel
-    
+ 
+    //*
     @IBAction func unwindSaveMember(sender: UIStoryboardSegue) {
-        print ("SAVE button pressed")
+        //  print ("SAVE button pressed")
         if let sourceViewController = sender.source as? MemberViewController  {
             let member = sourceViewController.thisMember
             
@@ -45,14 +46,42 @@ class MembersTableViewController: UITableViewController {
             } else {
             // Add new member
             let newIndexPath = IndexPath(row: sampleMembers.count, section: 0)
-            print("MEMBER COUNT:  \(sampleMembers.count)")
+            
+           // print("MEMBER COUNT:  \(sampleMembers.count)")
             sampleMembers.append(member)
-            print("+MEMBER COUNT:  \(sampleMembers.count)")
-            print("INDEXPATH: \(newIndexPath) ")
+           // print("+MEMBER COUNT:  \(sampleMembers.count)")
+           // print("INDEXPATH: \(newIndexPath) ")
             self.tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
         }
     }    // unwindSave
+    //*/
+    
+    /*
+    
+    @IBAction func unwindSaveMember(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? MemberViewController  {
+            let member = sourceViewController.thisMember
+            if let selectedIndexPath = self.tableView.indexPathForSelectedRow  {
+                sampleMembers[selectedIndexPath.row ] = member
+                self.tableView.reloadRows(at: [selectedIndexPath], with: UITableViewRowAnimation.automatic)
+            } else {
+                // Add new member
+                let newIndexPath = IndexPath(row: sampleMembers.count, section: 0)
+                sampleMembers.append(member)
+                self.tableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
+        }
+    }
+    
+    // unwindSave
+    
+     */
+    
+    
+    
+    
+    
     
     // MARK: - Table view data source
     
@@ -69,31 +98,24 @@ class MembersTableViewController: UITableViewController {
     }
 //*/
 
+
+    
 //*
-    //  Bob-2  SLIDE 12 - dequeue Reusable Cell
+    //  Bob-2  SLIDE 14 - dequeue Reusable Cell -- CUSTOM CELL
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> MemberTableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath) as! MemberTableViewCell
         // Configure the cell...
         let member = sampleMembers[indexPath.row]
-      
         print("ROW:  \(indexPath.row) \n NAME: \(member.name)")
-        //\n CITY:  \(member.city!) \n  STATUS:  \(member.status)")
-       
         cell.memberNameLabel.text = member.name
         cell.memberCityLabel.text = member.city
         cell.memberStatusLabel.text = status[ member.status]
         cell.memberSwiftLevelLabel.text = swiftLevel[member.level]
         cell.memberImage.image = member.image
-
         
-/*      //  Bob-2  SLIDE 14 - remove references to Style Subtitle
-        cell.textLabel?.text =  member.name
-        cell.detailTextLabel?.text = member.city! + "      " + status[ member.status]  + " - " + swiftLevel[member.level]
-        cell.imageView?.image = UIImage(named: member.imageName!)
-*/      //  14
         return cell
     }    // tableView
-//*/    //  12
+//*/    //  14
 
     /*
     // Override to support conditional editing of the table view.
@@ -132,17 +154,23 @@ class MembersTableViewController: UITableViewController {
 
     //*
     // MARK: - Navigation
+    
 
+    
+//*
+    //  Bob-2  SLIDE 24
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print ("ID: \(segue.identifier ?? "**** none") ")
-        
         if segue.identifier == "addMember" {
             let navVC = segue.destination as? UINavigationController                // target in NavController
             let targetVC = (navVC?.topViewController as? MemberViewController)!     // but we need ViewController
             targetVC.newMember = true                                               // to access this Bool
             targetVC.title = "Add Member"
-        } else {
+        }
+            
+        //  Bob-2  SLIDE 25
+        else {
             let targetVC = segue.destination as? MemberViewController
             targetVC?.newMember = false
             targetVC?.title = "Edit Member"
@@ -156,13 +184,15 @@ class MembersTableViewController: UITableViewController {
             }
             let selectedMember = sampleMembers[indexPath.row]
             targetVC?.thisMember = selectedMember
-            
-        }     // prepare
+//            print("NAME:  \(selectedMember.name)")
+//            print("NAME2:  \(String(describing: targetVC?.thisMember))")
+        }
     }
+//*/    //  s-24
 
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-    }
+}
 
 
 

@@ -16,7 +16,8 @@ class Member {
     var eMail: String?      // e-Mail address
     var status: Int         // 0, 1, 2, 3   Guest Member Presenter Organizer
     var level: Int          // swift level  Beginner, Novice, Qualified, Expert
-    var dateJoined: String?     // Bob-2  SLIDE 26 - change image variable name to UIImage type
+    var dateJoined: String?
+    // Bob-2  SLIDE 26 - change image variable name to UIImage type
     // var imageName: String     // image name of member  [ CORRECTION ]
     var image: UIImage?     // image of member
     init(
