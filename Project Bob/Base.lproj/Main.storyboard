@@ -101,6 +101,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Members" id="lx5-CR-Wq3">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="k0Z-8h-OtX"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Gor-NT-UpF">
                             <connections>
                                 <segue destination="xfH-vK-6PB" kind="presentation" identifier="addMember" id="jKi-ke-1Dc"/>
@@ -286,12 +287,12 @@
                     <navigationItem key="navigationItem" title="Add Member" id="8JZ-FI-1bb">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Vhp-Cr-386">
                             <connections>
-                                <segue destination="2h2-5a-0AA" kind="unwind" unwindAction="unwindCancelWithSender:" id="eHn-YR-DrN"/>
+                                <action selector="cancelBarButton:" destination="qnq-DP-lcu" id="lc6-Uj-zY6"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="VpT-SB-o1t">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Rwo-h5-DG0">
                             <connections>
-                                <segue destination="2h2-5a-0AA" kind="unwind" unwindAction="unwindSaveMemberWithSender:" id="PsP-BW-qRX"/>
+                                <segue destination="2h2-5a-0AA" kind="unwind" unwindAction="unwindSaveMemberWithSender:" id="Os0-zh-sIJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -303,7 +304,7 @@
                         <outlet property="memberJoinDate" destination="QNT-Aw-HVx" id="1Up-oK-w78"/>
                         <outlet property="memberName" destination="BXk-PT-grT" id="YzO-x8-jyH"/>
                         <outlet property="memberStatus" destination="yVw-M8-hj8" id="N8a-zo-xC2"/>
-                        <outlet property="saveBarButton" destination="VpT-SB-o1t" id="t5M-SB-B8C"/>
+                        <outlet property="saveBarButton" destination="Rwo-h5-DG0" id="cN7-ck-akJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NNh-hp-1zk" userLabel="First Responder" sceneMemberID="firstResponder"/>

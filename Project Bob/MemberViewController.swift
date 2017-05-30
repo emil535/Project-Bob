@@ -23,7 +23,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
   //  var thisMember: Member //= sampleMembers[0]   //  Bob-2  SLIDE 8
     // -- S-6
     
-    // Bob-2  SLIDE 28 - track needed for SaveButton enabled status
+    // Bob-2  SLIDE 29 - track needed for SaveButton enabled status
     var memberNameBool: Bool = false
     var memberEmailBool: Bool = false
     var changeAnyBool: Bool = false
@@ -34,8 +34,6 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     
     
 //*
-    //  Bob-2  SLIDE 28 - instance of a member
-  //  let member = Member(name: "", city: nil, eMail: nil, status: 0, level: 0, dateJoined: nil, image: nil)
     
     //  datePicker and Picker
     let memberStatusPicker = UIPickerView()
@@ -82,7 +80,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         //  save Button always initially disabled
         saveBarButton.isEnabled = false
         if newMember! {
-                //  Bob-2  SLIDE 28  -  set initial state for changes
+                //  Bob-2  SLIDE 29  -  set initial state for changes
             memberNameBool = false
             memberEmailBool = false
                 //  s-##
@@ -111,7 +109,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         //  Bob-2  SLIDE 8 - current member sample data into display
         else {
             //  LEFT:  views    RIGHT:  copy of membeer info in Table
-                //  Bob-2  SLIDE 28  -  set initial state for changes
+                //  Bob-2  SLIDE 29  -  set initial state for changes
             memberNameBool = true
             memberEmailBool = true
                 //  s-##
@@ -163,7 +161,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     @IBAction func addImageButton(_ sender: UIButton) {
         
        
-        // Bob-2  SLIDE 28 - confirm validity of other entries
+        // Bob-2  SLIDE 29 - confirm validity of other entries
         saveBarButton.isEnabled = memberNameBool && memberEmailBool
          //  self.changeAnyBool = true    //   change made to photo
         
@@ -201,7 +199,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
 */
         //   active field is red
         textField.textColor = UIColor.red
-        changeAnyBool = true    // Bob-2  SLIDE 28 -   some change made to something
+        changeAnyBool = true    // Bob-2  SLIDE 29 -   some change made to something
         //   select text field which is being edited
         switch textField {
         case memberName :
@@ -246,7 +244,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             print ("END EDIT:  Name")
             if isValidName(testStr: name) {
                 textField.textColor = UIColor.black
-                memberNameBool = true       // Bob-2  SLIDE 28
+                memberNameBool = true       // Bob-2  SLIDE 29
                 print ("VALID:  \(name) ")
                 print ("***** NAME:  \(memberNameBool)")
             } else {
@@ -261,7 +259,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
                 print ("e-Mail:  \(memberEMail.text!)")
                 textField.textColor = UIColor.black
                 
-                memberEmailBool = true      // Bob-2  SLIDE 28
+                memberEmailBool = true      // Bob-2  SLIDE 29
             } else {
                 print ("INVALID:  \(memberEMail.text!) ")
                 memberEmailBool = false
@@ -269,7 +267,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         default:
             textField.textColor = UIColor.black
         }
-        // Bob-2  SLIDE 28 - enable Save Button
+        // Bob-2  SLIDE 29 - enable Save Button
         saveBarButton.isEnabled = memberNameBool && memberEmailBool && changeAnyBool
         print("BUTTON:  \(saveBarButton.isEnabled)  NAME:   \(memberNameBool)    EMAIL:  \(memberEmailBool)")
     }
@@ -430,14 +428,34 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     
     
     //* MARK: - Navigation
+    
+   
+    
+    
 //*
+
+    
+    // Bob-2  SLIDE xx - the Cancel Button
+    @IBAction func cancelBarButton(_ sender: UIBarButtonItem) {
+        if newMember! {
+        //  dismissing a MODAL view
+        dismiss(animated: true, completion: nil)
+        print ("CANCEL pressed - DISMISS")
+        } else {
+            //  POPING  a view from the STACK
+            navigationController?.popViewController(animated: true)
+            print ("CANCEL pressed - POP")
+        }
+    }
+    
+    
     
  /*   @IBAction func cancelMember(_ sender: UIBarButtonItem) {
        dismiss(animated: true, completion: nil)
     }
  */
     
-    // Bob-2  SLIDE 2X7 - In a storyboard-based application, do a little preparation before navigation
+    // Bob-2  SLIDE 31 - In a storyboard-based application, do a little preparation before navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -453,13 +471,13 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             // joinDate on Date Picker
             thisMember.dateJoined = memberJoinDate.text
 
-            print("=====================  NAME:  \(thisMember.name)")
-            print("CITY:  \(thisMember.city!)")
-            print("eMail:  \(thisMember.eMail!)")
-            print("STATUS:  \(thisMember.status)")
-            print("LEVEL:  \(thisMember.level)")
-            print("JOINDATE:  \(thisMember.dateJoined!)")
-            print("IMAGE:   \(thisMember.image!)")
+//            print("=====================  NAME:  \(thisMember.name)")
+//            print("CITY:  \(thisMember.city!)")
+//            print("eMail:  \(thisMember.eMail!)")
+//            print("STATUS:  \(thisMember.status)")
+//            print("LEVEL:  \(thisMember.level)")
+//            print("JOINDATE:  \(thisMember.dateJoined!)")
+//            print("IMAGE:   \(thisMember.image!)")
        
     }
 //*/

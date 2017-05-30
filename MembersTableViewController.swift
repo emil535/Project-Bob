@@ -21,6 +21,10 @@ class MembersTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //  Bob-2  SLIDE 34 - enable Edit button in TableView
+        
+        self.navigationItem.leftBarButtonItem = self.editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,60 +32,38 @@ class MembersTableViewController: UITableViewController {
     }
 
     // MARK: - Actions
+
     
-    @IBAction func unwindCancel(sender: UIStoryboardSegue){
-        print("CANCEL button pressed")
-    }   // unwindCancel
- 
-    //*
+    
+//*
+    //  Bob-2  SLIDE xx - Unwind to TableView
+//    @IBAction func unwindCancel(sender: UIStoryboardSegue){
+//        print("CANCEL button pressed")
+//    }   // unwindCancel
+//    
     @IBAction func unwindSaveMember(sender: UIStoryboardSegue) {
         //  print ("SAVE button pressed")
         if let sourceViewController = sender.source as? MemberViewController  {
             let member = sourceViewController.thisMember
-            
-            if let selectedIndexPath = self.tableView.indexPathForSelectedRow  {
-                sampleMembers[selectedIndexPath.row ] = member
-               // self.tableView.rectForRow(at: selectedIndexPath)
-                self.tableView.reloadRows(at: [selectedIndexPath], with: UITableViewRowAnimation.automatic)
-            } else {
-            // Add new member
-            let newIndexPath = IndexPath(row: sampleMembers.count, section: 0)
-            
-           // print("MEMBER COUNT:  \(sampleMembers.count)")
-            sampleMembers.append(member)
-           // print("+MEMBER COUNT:  \(sampleMembers.count)")
-           // print("INDEXPATH: \(newIndexPath) ")
-            self.tableView.insertRows(at: [newIndexPath], with: .automatic)
-            }
-        }
-    }    // unwindSave
-    //*/
-    
-    /*
-    
-    @IBAction func unwindSaveMember(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? MemberViewController  {
-            let member = sourceViewController.thisMember
+            //  if a row is selected then update it on unwind;
             if let selectedIndexPath = self.tableView.indexPathForSelectedRow  {
                 sampleMembers[selectedIndexPath.row ] = member
                 self.tableView.reloadRows(at: [selectedIndexPath], with: UITableViewRowAnimation.automatic)
             } else {
-                // Add new member
+                // Add new member if no row is selected
                 let newIndexPath = IndexPath(row: sampleMembers.count, section: 0)
+                
+                // print("MEMBER COUNT:  \(sampleMembers.count)")
                 sampleMembers.append(member)
+                // print("+MEMBER COUNT:  \(sampleMembers.count)")
+                // print("INDEXPATH: \(newIndexPath) ")
                 self.tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
         }
-    }
+    }    // unwindSave
+//*/
     
-    // unwindSave
-    
-     */
-    
-    
-    
-    
-    
+
     
     // MARK: - Table view data source
     
@@ -117,26 +99,29 @@ class MembersTableViewController: UITableViewController {
     }    // tableView
 //*/    //  14
 
-    /*
-    // Override to support conditional editing of the table view.
+    //*
+    //  Bob-2  SLIDE 34 - Override to support editing the table view. Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
+    //*/
 
-    /*
-    // Override to support editing the table view.
+    //*
+    //  Bob-2  SLIDE 34 - Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            sampleMembers.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    //*/
 
+    
+    
     /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
