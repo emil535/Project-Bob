@@ -48,29 +48,29 @@ class MemberViewController: UIViewController,
         self.memberStatus.delegate = self
         self.memberJoinDate.delegate = self
         
-/*
-        //  Bob 1 - SLIDE 8:  picker delegates initialized
+
+        
+/*      //  Bob 1 - SLIDE 8:  picker delegates initialized
         self.memberStatusPicker.delegate = self
         self.memberStatusPicker.dataSource = self
         //  NOTE:  Bob 1 - SLIDE 8:  default value for pickerView
         memberStatusPicker.selectRow(1, inComponent: 0, animated: true)
 */
-
-/*
-        // Bob 1 - SLIDE 10:   initialize date picker
+        
+        
+/*      // Bob 1 - SLIDE 10:   initialize date picker
         memberJoinDatePicker.date = NSDate() as Date
         memberJoinDatePicker.datePickerMode = UIDatePickerMode.date
 */
 
         
-/*
-        // Bob 1 - SLIDE 11:  constraint initial value
+/*      // Bob 1 - SLIDE 11:  constraint initial value
         constraintInitially = self.constraintTextStackBottom.constant
-         print ("CONSTRAINT:  \(constraintInitially)")
+        print ("CONSTRAINT:  \(constraintInitially)")
 */
+
      
-/*
-         //  NOTE:  Bob 1 - SLIDE 15:  Tap ends edit session
+/*      //  NOTE:  Bob 1 - SLIDE 15:  Tap ends edit session
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
 */
         
@@ -82,6 +82,7 @@ class MemberViewController: UIViewController,
                            name: .UIKeyboardWillHide,
                            object: nil)
 */
+        
     }   // ** end of View Did Load   ***************************
     
 
@@ -108,9 +109,9 @@ class MemberViewController: UIViewController,
     
     //  MARK:  -  Text Field
     //  NOTE: display keyboard or Picker or Date Picker depending on which text field is first responder
+
     
-/*
-    //  Bob 1 - SLIDE 6:  user pressed Return/Done- resigh first responder
+/*  //  Bob 1 - SLIDE 6:  user pressed Return/Done- resigh first responder
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print( "RETURN PRESSED" )
         textField.resignFirstResponder()
@@ -119,18 +120,20 @@ class MemberViewController: UIViewController,
      }
  */
     
-/*
-    //  Bob 1 - SLIDE 7:  textFieldDidBeginEditing
+
+/*  //  Bob 1 - SLIDE 7:  textFieldDidBeginEditing
     func textFieldDidBeginEditing(_ textField: UITextField) {
-/*
-        //  Bob 1 - SLIDE 14:   ANIMATE
+     
+     
+     /* //  Bob 1 - SLIDE 14:   ANIMATE
         if constraintTextStackBottom.constant == constraintInitially {
             keyBoardMove (moveUp: true) }
         // NOTE: helps user see which field is active
         textField.textColor = UIColor.red
-*/
-        
+     */
+     
         //  keyBoardMove (moveUp: true)   //   SLIDE 13:   ANIMATE FAIL
+        
         //   select text field which is being edited
         switch textField {
         case memberName :
@@ -145,39 +148,40 @@ class MemberViewController: UIViewController,
             print ( "KEYBOARD:  EMail ")
             textField.returnKeyType = UIReturnKeyType.done
             textField.keyboardType = UIKeyboardType.emailAddress
-
-/*
-        //  Bob 1 - SLIDE 8:  set Picker as input Keyboard
+    
+     
+     /*     //  Bob 1 - SLIDE 8:  set Picker as input Keyboard
         case memberStatus:
             print ("KEYBOARD:  Picker")
             textField.inputView = memberStatusPicker
-*/
-            
-/*
-        //  Bob 1 - SLIDE 10:  set Date Picker as input Keyboard
+     */
+
+     
+     /*      //  Bob 1 - SLIDE 10:  set Date Picker as input Keyboard
         case memberJoinDate:
             print ("KEYBOARD:  Date Picker")
-            //  memberJoinDate.addTarget(<#T##target: Any?##Any?#>, action: <#T##Selector#>, for: <#T##UIControlEvents#>)
             memberJoinDatePicker.addTarget(self,
                     action: #selector(MemberViewController.joinDateChanged(_:)),
                     for: .valueChanged)
             textField.inputView = memberJoinDatePicker
-*/
+     */
+     
         default:
            break
         }
     }
-*/  // SLIDE 7
+    // - end of slide: 7     
+*/
     
     
-/*
-    //  keyBoardMove (moveUp: true)   // Bob 1 - SLIDE 13:
+/*  // Bob 1 - SLIDE 13
     //  Use to validate data and indicate editing is done
     func textFieldDidEndEditing(_ textField: UITextField) {
         print ("END EDITING")
-       // keyBoardMove(moveUp: false)     //   SLIDE 13:   ANIMATE FAIL
-/*
-        // Bob 1 - SLIDE 18:
+        // keyBoardMove(moveUp: false)     //   SLIDE 13:   ANIMATE FAIL
+     
+
+     /*         // Bob 1 - SLIDE 18 - Validate E-Mail format / text in black
         switch textField {
         case memberEMail:
             print ("END EDIT:  E-Mail")
@@ -190,15 +194,19 @@ class MemberViewController: UIViewController,
         default:
             textField.textColor = UIColor.black
         }
-*/
+     */
+
+     
     }
+    //  - end of slide:  13
 */
+
     
 
 
 //  MARK:  PickerView protocols
-/*
-    //    Bob 1 - SLIDE 9:  PickerView protocols
+    
+/*  //    Bob 1 - SLIDE 9:  PickerView protocols
     @available(iOS 2.0, *)
     // set the number of spinners aka components in Picker View
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -217,30 +225,33 @@ class MemberViewController: UIViewController,
         memberStatus.text = status[row]
        // memberStatus.resignFirstResponder()   // selection made; dismiss picker
     }
-    
 */
+
     
     // MARK:  Date Picker
-/*
-     // Bob 1 - SLIDE 10:  data Picker
+
+    
+/*   // Bob 1 - SLIDE 10:  data Picker
      func joinDateChanged (_ sender: UIDatePicker){
-     let formatter = DateFormatter()
-     formatter.dateStyle = .long
-     memberJoinDate.text! = formatter.string(from: sender.date)
-     print ("DUE DATE \(memberJoinDate.text!)")
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        memberJoinDate.text! = formatter.string(from: sender.date)
+        print ("DUE DATE \(memberJoinDate.text!)")
      }
 */
     
+    
     //  MARK: - Support functions
-/*
-    //  Bob 1 - SLIDE 16:  notification action
+    
+/*    //  Bob 1 - SLIDE 16:  notification action
     func keyboardWillHide() -> Void {
         keyBoardMove(moveUp: false)
     }
 */
     
-/*
-    // Bob 1 - SLIDE 12:  Animate for Keyboard
+
+    
+/*  // Bob 1 - SLIDE 12:  Animate for Keyboard
     //  NOTE:  hide image and move (stack of) text fields out of the way by
     //         modifying the constraint on the text stack and changing image alpha
     func keyBoardMove (moveUp: Bool) -> Void {
@@ -267,22 +278,22 @@ class MemberViewController: UIViewController,
                             completion: nil )
     }
 */
+
     
-/*
-    //  Bob 1 - SLIDE 18:  Validate E-Mail format
+/*  //  Bob 1 - SLIDE 18:  Validate E-Mail format
     func isValidEmail(testStr:String) -> Bool {
         // print("validate calendar: \(testStr)")
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: testStr)
     }
 */
+    
 
 }    // last curly braces for MemberViewController   =================================================
 
 
-//                END OF BOB 1
+//                END OF BOB 2
 
 
 
