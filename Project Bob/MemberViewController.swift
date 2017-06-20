@@ -13,26 +13,26 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     
     // MARK: - Properties & Outlets
     
-//*  
-    //  Bob-2  SLIDE 6 - Add member or edit member
-    var newMember: Bool? //= false         //  Bob-2  SLIDE 8
+//*  //  Bob-2  SLIDE 6 - Add member or edit member
+    var newMember: Bool?  = false       // set value when TESTING
     let defaultStatus = 0               // Guest
     let defaultSwiftLevel = 0           // Beginner
     
     // sample data, used when editing existing member
-  //  var thisMember: Member //= sampleMembers[0]   //  Bob-2  SLIDE 8
-    // -- S-6
-    
-    // Bob-2  SLIDE 29 - track needed for SaveButton enabled status
-    var memberNameBool: Bool = false
-    var memberEmailBool: Bool = false
-    var changeAnyBool: Bool = false
-    
-    // sample data, used when editing existing member
-    var thisMember = Member(name: "", city: nil, eMail: nil, status: 0, level: 0, dateJoined: nil, image: nil)
+    // var thisMember: Member? = sampleMembers[2]   //  Bob-2  SLIDE 8
 //*/
     
+//*    // Bob-2  SLIDE 32 - track needed for SaveButton enabled status
+    var memberNameBool: Bool = false         // set value when TESTING
+    var memberEmailBool: Bool = false
+    var changeAnyBool: Bool = false
+//*/
     
+    // sample data, used when editing existing member
+     var thisMember = Member(name: "", city: nil, eMail: nil, status: 0, level: 0, dateJoined: nil, image: nil)
+//*/
+    
+   
 //*
     
     //  datePicker and Picker
@@ -67,7 +67,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         // constraint initial value
         constraintInitially = self.constraintTextStackBottom.constant
         
-     
+        print("SAMPLE:  \(sampleMembers[2].name)")
 
         //  Instances of DateFormatter() create string representations of NSDate objects,
         //  and convert textual representations of dates and times into NSDate objects.
@@ -75,15 +75,14 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         formatter.dateStyle = .medium
         formatter.timeStyle = .none
         
-//*
-        //  Bob-2  SLIDE 7 - put new member default data into display
-        //  save Button always initially disabled
-        saveBarButton.isEnabled = false
+        saveBarButton.isEnabled = false     // Bob-2  SLIDE 32 -  save Button always initially disabled
+        
+//*     //  Bob-2  SLIDE 7 - put new member default data into display
         if newMember! {
-                //  Bob-2  SLIDE 29  -  set initial state for changes
+        //*    //  Bob-2  SLIDE 32  -  set initial state for changes
             memberNameBool = false
             memberEmailBool = false
-                //  s-##
+        //*/    //  s-32
             
             // no image
             memberImage.image = UIImage(named: "No Image")
@@ -100,19 +99,17 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             memberJoinDatePicker.date = dateCurrent         // set picker to current date
             memberJoinDatePicker.datePickerMode = UIDatePickerMode.date  //  display date (only)
             memberJoinDate?.text = formatter.string(from: dateCurrent)
-            thisMember.dateJoined = (memberJoinDate?.text)!     // member value to default setting
+          //  thisMember.dateJoined = (memberJoinDate?.text)!     // member value to default setting
         }
-            
 //*/    // S-7
         
-//*
-        //  Bob-2  SLIDE 8 - current member sample data into display
+//*     //  Bob-2  SLIDE 8 - current member sample data into display
         else {
             //  LEFT:  views    RIGHT:  copy of membeer info in Table
-                //  Bob-2  SLIDE 29  -  set initial state for changes
+        //*    //  Bob-2  SLIDE 32  -  set initial state for changes
             memberNameBool = true
             memberEmailBool = true
-                //  s-##
+        //*/    //  s-32
             memberImage.image =  thisMember.image    //  Bob-2  SLIDE 26 -
             memberName.text = thisMember.name
             memberCity.text = thisMember.city
@@ -122,12 +119,16 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             memberStatusPicker.selectRow(thisMember.status, inComponent: 0, animated: true)
             memberStatusPicker.selectRow(thisMember.level, inComponent: 1, animated: true)
             // joinDate on Date Picker
-            memberJoinDate.text = thisMember.dateJoined
-
-            let joinDate = thisMember.dateJoined ?? formatter.string(from: Date())
-            memberJoinDatePicker.date = (formatter.date(from: joinDate))!
+            // if date is valid then update picker, else set picker to default (current) date
+            if let joinDate =  formatter.date(from: thisMember.dateJoined!)  {
+              memberJoinDatePicker.date =  joinDate
+            }
+            else {
+               memberJoinDatePicker.date =  Date()
+            }
             memberJoinDatePicker.datePickerMode = UIDatePickerMode.date
-            memberJoinDate?.text = joinDate
+            //  set display based on pickerDate
+            memberJoinDate?.text = formatter.string(from: memberJoinDatePicker.date)
         }
  //*/
 
@@ -141,8 +142,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
                            selector: #selector(keyboardWillHide),
                            name: .UIKeyboardWillHide,
                            object: nil)
-//*
-        //  Bob-2  SLIDE 21 - Add observer when keyboard shows
+//*      //  Bob-2  SLIDE 23 - Add observer when keyboard shows
         center.addObserver(self,
                            selector: #selector(keyboardWillShow),
                            name: .UIKeyboardWillShow,
@@ -159,11 +159,10 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     // MARK: - Actions
     //  Image Picker Controller
     @IBAction func addImageButton(_ sender: UIButton) {
-        
-       
-        // Bob-2  SLIDE 29 - confirm validity of other entries
+    //*    // Bob-2  SLIDE 32 - confirm validity of other entries
         saveBarButton.isEnabled = memberNameBool && memberEmailBool
          //  self.changeAnyBool = true    //   change made to photo
+    //*/
         
         let photoPicker = UIImagePickerController()
         photoPicker.delegate = self
@@ -192,14 +191,13 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     //  textFieldDidBeginEditing
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
-/*
-        //  Bob-2  SLIDE 21 - Animate - DELETED !!
+/*     //  Bob-2  SLIDE 23 - Animate - DELETED !!
         if constraintTextStackBottom.constant == constraintInitially {
             keyBoardMove (moveUp: true) }
 */
         //   active field is red
         textField.textColor = UIColor.red
-        changeAnyBool = true    // Bob-2  SLIDE 29 -   some change made to something
+        changeAnyBool = true    // Bob-2  SLIDE 32 -   some change made to something
         //   select text field which is being edited
         switch textField {
         case memberName :
@@ -244,12 +242,12 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             print ("END EDIT:  Name")
             if isValidName(testStr: name) {
                 textField.textColor = UIColor.black
-                memberNameBool = true       // Bob-2  SLIDE 29
+                memberNameBool = true       // Bob-2  SLIDE 32
                 print ("VALID:  \(name) ")
                 print ("***** NAME:  \(memberNameBool)")
             } else {
                 print ("INVALID:  \(name) ")
-                memberNameBool = false
+                memberNameBool = false      // Bob-2  SLIDE 32
                 print ("***** NAME:  \(memberNameBool)")
             }
 //*/
@@ -259,17 +257,18 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
                 print ("e-Mail:  \(memberEMail.text!)")
                 textField.textColor = UIColor.black
                 
-                memberEmailBool = true      // Bob-2  SLIDE 29
+                memberEmailBool = true      // Bob-2  SLIDE 32
             } else {
                 print ("INVALID:  \(memberEMail.text!) ")
-                memberEmailBool = false
+                memberEmailBool = false     // Bob-2  SLIDE 32
             }
         default:
             textField.textColor = UIColor.black
         }
-        // Bob-2  SLIDE 29 - enable Save Button
+   //*     // Bob-2  SLIDE 32 - enable Save Button
         saveBarButton.isEnabled = memberNameBool && memberEmailBool && changeAnyBool
         print("BUTTON:  \(saveBarButton.isEnabled)  NAME:   \(memberNameBool)    EMAIL:  \(memberEmailBool)")
+    //*/   // s-32
     }
     
     // MARK:  Date Picker
@@ -284,7 +283,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     @available(iOS 2.0, *)
     // set the number of spinners aka components in Picker View
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2  //  Bob-2  SLIDE 5        
+        return 2  //  Bob-2  SLIDE 5
     }
     //   Set the number of rows in Picker View
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -296,27 +295,31 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     }
     //  Assign selection made by pickerView to textField
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        //  Bob-2  SLIDE 5
         if component == 0 {
             thisMember.status = row
             // print("ROW:   ~~\(row)~~   ++\(component)++    **\(member.status)**")
         } else {
             thisMember.level = row
         }
-        memberStatus.text = memberInfo[0][(thisMember.status)] + " - " +  memberInfo[1][(thisMember.level)]  // update UI
+        memberStatus.text = memberInfo[0][(thisMember.status)] + " - " +  memberInfo[1][(thisMember.level)]
     }
     
     
     
     //  MARK: - Support functions
 //*
-    //  Bob-2  SLIDE 21 -  notification action Will Show
+    //  Bob-2  SLIDE 23 -  notification action Will Show
     func keyboardWillShow(notification:NSNotification) -> Void {
-        keyBoardMove(moveUp: true , notification: notification)
+        keyBoardMove(moveUp: true , notification: notification)   //  Bob-2  SLIDE 24 - Add Notification Parameter
+      //  keyBoardMove(moveUp: true)
     }
-    
+//*/
+//*
     //  notification action Will Hide
     func keyboardWillHide(notification:NSNotification) -> Void {
-        keyBoardMove(moveUp: false, notification: notification)
+        keyBoardMove(moveUp: false, notification: notification)   //  Bob-2  SLIDE 24 - Add Notification Parameter
+      //  keyBoardMove(moveUp: false)
     }
 //*/
     
@@ -325,14 +328,14 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     //  NOTE:  hide image and move (stack of) text fields out of the way by
     //         modifying the constraint on the text stack and changing image alpha
 
-/*  UPDATED THIS VERSION
+/*  // Bob-2  SLIDE 24 - Original VERSION - DELETED
     func keyBoardMove (moveUp: Bool) -> Void {
         var alpha: CGFloat
         var constraint: CGFloat
         print ( "KEYBOARD UP:  \(moveUp) "    )
         if moveUp {
             alpha = 0.1
-            constraint = self.constraintInitially! + 180}
+            constraint = self.constraintInitially! + 80}
         else {
             alpha = 1.0
             constraint =  self.constraintInitially!
@@ -350,9 +353,9 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
                             completion: nil )
     }
 */
-    //  , notification: NSNotification
-//*
-    // Bob-2  SLIDE 22 - now includes computation of keyboard size using notification info
+    
+//*    // Bob-2  SLIDE 24 - now includes computation of keyboard size using notification info
+
     func keyBoardMove (moveUp: Bool, notification: NSNotification) -> Void {
         //  use NSNotification.userInfo dictionary to get keyboard size
         var userInfo = notification.userInfo!
@@ -428,14 +431,8 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     
     
     //* MARK: - Navigation
-    
-   
-    
-    
-//*
 
-    
-    // Bob-2  SLIDE xx - the Cancel Button
+//* // Bob-2  SLIDE 31 - the Cancel Button
     @IBAction func cancelBarButton(_ sender: UIBarButtonItem) {
         if newMember! {
         //  dismissing a MODAL view
@@ -447,21 +444,12 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             print ("CANCEL pressed - POP")
         }
     }
-    
-    
-    
- /*   @IBAction func cancelMember(_ sender: UIBarButtonItem) {
-       dismiss(animated: true, completion: nil)
-    }
- */
-    
-    // Bob-2  SLIDE 31 - In a storyboard-based application, do a little preparation before navigation
+//*/   // S-31
+
+//*    // Bob-2  SLIDE 34 - In a storyboard-based application, do a little preparation before navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         super.prepare(for: segue, sender: sender)
-    
-    
             //  member
             thisMember.image = memberImage.image
             thisMember.name = memberName.text!
@@ -470,19 +458,10 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             // member.status and member.level are set by picker or defaults
             // joinDate on Date Picker
             thisMember.dateJoined = memberJoinDate.text
-
-//            print("=====================  NAME:  \(thisMember.name)")
-//            print("CITY:  \(thisMember.city!)")
-//            print("eMail:  \(thisMember.eMail!)")
-//            print("STATUS:  \(thisMember.status)")
-//            print("LEVEL:  \(thisMember.level)")
-//            print("JOINDATE:  \(thisMember.dateJoined!)")
-//            print("IMAGE:   \(thisMember.image!)")
-       
     }
-//*/
     
-//*/
+//*/    // s-34
+    
 }    // last curly braces for MemberViewController
     
 

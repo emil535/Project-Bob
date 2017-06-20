@@ -14,8 +14,7 @@ class MemberTableViewCell: UITableViewCell {
 
 //  MARK: - Outlets
   
-//*
-    
+//*     //    Bob-2  SLIDE 15 - Outlets from CUSTOM Cell
     @IBOutlet weak var memberImage: UIImageView!
     @IBOutlet weak var memberNameLabel: UILabel!
     @IBOutlet weak var memberCityLabel: UILabel!

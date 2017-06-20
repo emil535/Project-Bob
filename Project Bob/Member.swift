@@ -8,8 +8,7 @@
 
 import Foundation
 import UIKit
-//*
-//  Bob-2  SLIDE 4 - Add Member Class in Model
+//*   //  Bob-2  SLIDE 4 - Add Member Class in Model
 class Member {
     var name: String        // name of Member
     var city: String?       // city of member
@@ -19,7 +18,8 @@ class Member {
     var dateJoined: String?
     // Bob-2  SLIDE 26 - change image variable name to UIImage type
     // var imageName: String     // image name of member  [ CORRECTION ]
-    var image: UIImage?     // image of member
+    var image: UIImage?
+    
     init(
         name: String,
         city: String?,
@@ -27,6 +27,7 @@ class Member {
         status: Int,
         level: Int,
         dateJoined: String?,
+        // Bob-2  SLIDE 26 - change image variable name to UIImage type
         // imageName: String?   //  [ CORRECTION ]
         image: UIImage?
         )
@@ -37,6 +38,7 @@ class Member {
         self.status = status
         self.level = level
         self.dateJoined = dateJoined
+        // Bob-2  SLIDE 26 - change image variable name to UIImage type
         // self.imageName = imageName   //  [ CORRECTION ]
         self.image = image
     }
@@ -46,14 +48,6 @@ class Member {
 //*
 //  Bob-2  SLIDE 4 - Sample data
 var sampleMembers = [
-    Member(name: "Lucy Bodacious",
-           city: "Los Angeles",
-           eMail: "LucyBod@Aol.com",
-           status: 0,
-           level: 3,
-           dateJoined: "Jan 22, 2016",
-           // imageName: "college girl")),  //  [ CORRECTION ]
-           image: UIImage(named: "Lucy")),
     Member(name: "Emil Safier",
            city: "Tokyo",
            eMail: "Emil502@Gmail.com",
@@ -61,13 +55,21 @@ var sampleMembers = [
            level: 4,
            dateJoined: "June 14, 2017",
            image: UIImage(named: "Emil")),
-    Member(name: "Billy Snapchat",
-            city: "Santa Monica",
-            eMail: "Billy105@Gmail.com",
+    Member(name: "Lucy Bodacious",
+           city: "Los Angeles",
+           eMail: "LucyBod.Aol.com",
+           status: 0,
+           level: 3,
+           dateJoined: "Jan aa, 2016",
+           // imageName: "Lucy")),  //  [ CORRECTION ]
+        image: UIImage(named: "Lucy")),
+    Member(name: "Albert Einstein",
+            city: "Princeton, NJ",
+            eMail: "Albert@Gmail.com",
             status: 1,
             level: 2,
-            dateJoined: "Feb 14, 2017",
-            image: UIImage(named: "Billy")),
+            dateJoined: "Mar 14, 1979",
+            image: UIImage(named: "Albert")),
     Member(name: "Fred Zapata",
            city: "Lima Peru",
            eMail: "Fred8989@Gmail.com",
@@ -86,8 +88,7 @@ var sampleMembers = [
 ]
 //*/
 
-//*
-//  Bob-2  SLIDE 5 - Add array for Swift Level, and Array of Arrays
+//*     //  Bob-2  SLIDE 5 - Add array for Swift Level, and Array of Arrays
 let status = ["Guest", "Member", "Presenter", "Organizer"]
 let swiftLevel = [ "Beginner", "Novice", "Experienced", "Expert", "Swift Guru"]
 // Array consisting of two arrays representing choices for status and level of member
