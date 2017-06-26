@@ -86,12 +86,12 @@ var sampleMembers = [
            dateJoined: "Feb 14, 2017",
            image: UIImage(named: "Barnabe"))
 ]
-//*/
+//*/    s-4
 
 //*     //  Bob-2  SLIDE 5 - Add array for Swift Level, and Array of Arrays
 let status = ["Guest", "Member", "Presenter", "Organizer"]
 let swiftLevel = [ "Beginner", "Novice", "Experienced", "Expert", "Swift Guru"]
 // Array consisting of two arrays representing choices for status and level of member
 let memberInfo = [status, swiftLevel]
-//*/
+//*/    s-5
 

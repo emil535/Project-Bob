@@ -64,11 +64,11 @@
 			children = (
 				2654241C1E3318800048B675 /* AppDelegate.swift */,
 				2654241E1E3318800048B675 /* MemberViewController.swift */,
+				2654242E1E331AA80048B675 /* Member.swift */,
 				26E695A01E737D4500A50B0E /* MembersTableViewController.swift */,
 				26C781491E74A97B0082C6FA /* MemberTableViewCell.swift */,
 				265424201E3318800048B675 /* Main.storyboard */,
 				260D23F11EA426A800B337F0 /* MembersSubTitleTableViewController.swift */,
-				2654242E1E331AA80048B675 /* Member.swift */,
 				265424231E3318800048B675 /* Assets.xcassets */,
 				265424251E3318800048B675 /* LaunchScreen.storyboard */,
 				265424281E3318800048B675 /* Info.plist */,

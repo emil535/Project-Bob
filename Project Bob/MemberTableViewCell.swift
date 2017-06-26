@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class MemberTableViewCell: UITableViewCell {
 
 //  MARK: - Outlets
@@ -20,7 +18,7 @@ class MemberTableViewCell: UITableViewCell {
     @IBOutlet weak var memberCityLabel: UILabel!
     @IBOutlet weak var memberStatusLabel: UILabel!
     @IBOutlet weak var memberSwiftLevelLabel: UILabel!
-//*/
+//*/    s-15
     
     override func awakeFromNib() {
         super.awakeFromNib()

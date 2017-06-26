@@ -15,9 +15,7 @@ class MembersTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //  Bob-2  SLIDE 37 - enable Edit button in TableView
-        
         self.navigationItem.leftBarButtonItem = self.editButtonItem
     }
 
@@ -29,18 +27,18 @@ class MembersTableViewController: UITableViewController {
 
 //* //  Bob-2  SLIDE 35 - Unwind from MemberViewController
     @IBAction func unwindSaveMember(sender: UIStoryboardSegue) {
-          print ("SAVE button pressed")
+          print ("SAVE button in MemberView pressed")
         if let sourceViewController = sender.source as? MemberViewController  {
             let member = sourceViewController.thisMember
-            //*     TEST for bug
+            
+            //*     TEST for bug  ------------------------
             let count = sampleMembers.count
             for i in 0..<count {
                 print("ACTION Person \(i) is called \(sampleMembers[i].name)")
             }
-            //*/
+            //*/    --------------------------------------
             
             //  if a row is selected then update it on unwind;
-            // print("TABVIEW:  \(self.tableView.indexPathForSelectedRow?.row)")
             if let selectedIndexPath = self.tableView.indexPathForSelectedRow  {
                 print("UPDATE ROW:  \(selectedIndexPath.row)")
                 sampleMembers[selectedIndexPath.row ] = member
@@ -62,21 +60,20 @@ class MembersTableViewController: UITableViewController {
 
     
     // MARK: - Table view data source
-    
 //* //  Bob-2  SLIDE 10 - dequeue Reusable Cell
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+        // return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        // return the number of rows
         return sampleMembers.count
     }
-//*/
+//*/    s-10
 
 
-//  MARK:  dequeue Reusable Cell
+//  MARK:  dequeue Reusable Cell  -  DELETED !!!
 /* //  Bob-2  SLIDE 12 - Subtitle Cell
 override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath)
@@ -88,7 +85,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
     cell.imageView?.image =  member.image
     return cell
 }
-*/  // 12
+*/  // s-12
     
 
 //*     //  Bob-2  SLIDE 16 - dequeue Reusable Cell -- CUSTOM CELL
@@ -104,7 +101,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
         cell.memberImage.image = member.image
         return cell
     }
-//*/    //  S-16
+//*/    //  s-16
 
 //*     //  Bob-2  SLIDE 37 - Override to support editing the table view. Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -130,7 +127,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
     /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+        
     }
     */
 
@@ -180,7 +177,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
            //*/
             targetVC?.thisMember = selectedMember
         }
-    //*/    //  S-28   emil535@gmail.com
+    //*/    //  S-28   
     }
 //*/    //  s-27
 
