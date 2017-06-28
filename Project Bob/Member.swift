@@ -8,7 +8,10 @@
 
 import Foundation
 import UIKit
-//*   //  Bob-2  SLIDE 4 - Add Member Class in Model
+
+
+
+/*   //  Bob-2  SLIDE 4 - Add Member Class in Model
 class Member {
     var name: String        // name of Member
     var city: String?       // city of member
@@ -43,10 +46,9 @@ class Member {
         self.image = image
     }
 }
-//*/
+*/      //  s-4
 
-//*
-//  Bob-2  SLIDE 4 - Sample data
+/*      //  Bob-2  SLIDE 4 - Sample data
 var sampleMembers = [
     Member(name: "Emil Safier",
            city: "Tokyo",
@@ -86,12 +88,13 @@ var sampleMembers = [
            dateJoined: "Feb 14, 2017",
            image: UIImage(named: "Barnabe"))
 ]
-//*/    s-4
+*/   //  s-4
 
-//*     //  Bob-2  SLIDE 5 - Add array for Swift Level, and Array of Arrays
+
 let status = ["Guest", "Member", "Presenter", "Organizer"]
+/*     //  Bob-2  SLIDE 5 - Add array for Swift Level, and Array of Arrays
 let swiftLevel = [ "Beginner", "Novice", "Experienced", "Expert", "Swift Guru"]
 // Array consisting of two arrays representing choices for status and level of member
 let memberInfo = [status, swiftLevel]
-//*/    s-5
+*/   //  s-5
 

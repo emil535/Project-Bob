@@ -30,7 +30,7 @@ class MembersSubTitleTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-//* //  Bob-2  SLIDE 10 - table view specifications
+/* //  Bob-2  SLIDE 10 - table view specifications
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -39,10 +39,10 @@ class MembersSubTitleTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return sampleMembers.count
     }
-//*/
+*/      //  s-10
     
     
-//* //  Bob-2  SLIDE 12 - dequeue Reusable Cell - SubTitle
+/* //  Bob-2  SLIDE 12 - dequeue Reusable Cell - SubTitle
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath)
         // Configure the cell...
@@ -53,7 +53,7 @@ class MembersSubTitleTableViewController: UITableViewController {
         cell.imageView?.image =  member.image
         return cell
     }
-//*/
+*/      //  s-12
 
     
 
