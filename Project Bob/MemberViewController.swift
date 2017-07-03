@@ -4,7 +4,8 @@
 //
 //  Created by Emil Safier on 1/20/17.
 //  Copyright © 2017 Emil Safier. All rights reserved.
-//  VERSION BOB-2  Branch Bob-2S  
+//  VERSION BOB-2  Branch Bob-2S 
+//                 Revised on:  July 3 2017 4:34pm
 
 //  (This branch begins where Bob-1 ends, and adds code which 
 //  matches to the KeyNote PDF of the Bob-2 lecture.  All SLIDE # 
@@ -22,10 +23,11 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     var newMember: Bool?  = false       // set value when TESTING
     let defaultStatus = 0               // Guest
     let defaultSwiftLevel = 0           // Beginner
+*/   //     s-6
     
     /// sample data, used when editing existing member
-    // var thisMember: Member = sampleMembers[2]   //  Bob-2  SLIDE 8  - SLIDE 39  DELETED  !!!
-*/   //     s-6
+    // var thisMember: Member = sampleMembers[2]   //  Bob-2  SLIDE 5
+    // Bob-2  SLIDE 39  DELETED  !!!
     
 /*    // Bob-2  SLIDE 32 - track needed for SaveButton enabled status
     var memberNameBool: Bool = false         // set value when TESTING
@@ -307,8 +309,8 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             thisMember.level = row
         }
         memberStatus.text = memberInfo[0][(thisMember.status)] + " - " +  memberInfo[1][(thisMember.level)]
-    }
 */      //  s-5
+        
         memberStatus.text = status[row]
     }
     
