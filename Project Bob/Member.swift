@@ -19,7 +19,7 @@ class Member {
     var status: Int         // 0, 1, 2, 3   Guest Member Presenter Organizer
     var level: Int          // swift level  Beginner, Novice, Qualified, Expert
     var dateJoined: String?
-    // Bob-2  SLIDE 26 - change image variable name to UIImage type
+    // Bob-2  SLIDE xx - change image variable name to UIImage type
     // var imageName: String     // image name of member  [ CORRECTION ]
     var image: UIImage?
     
@@ -30,7 +30,7 @@ class Member {
         status: Int,
         level: Int,
         dateJoined: String?,
-        // Bob-2  SLIDE 26 - change image variable name to UIImage type
+        // Bob-2  SLIDE xx - change image variable name to UIImage type
         // imageName: String?   //  [ CORRECTION ]
         image: UIImage?
         )
@@ -41,7 +41,7 @@ class Member {
         self.status = status
         self.level = level
         self.dateJoined = dateJoined
-        // Bob-2  SLIDE 26 - change image variable name to UIImage type
+        // Bob-2  SLIDE xx - change image variable name to UIImage type
         // self.imageName = imageName   //  [ CORRECTION ]
         self.image = image
     }

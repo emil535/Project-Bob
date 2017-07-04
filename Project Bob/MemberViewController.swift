@@ -5,7 +5,7 @@
 //  Created by Emil Safier on 1/20/17.
 //  Copyright © 2017 Emil Safier. All rights reserved.
 //  VERSION BOB-2  Branch Bob-2S 
-//                 Revised on:  July 3 2017 4:34pm
+//                 Revised on:  July 4 2017 10:28am
 
 //  (This branch begins where Bob-1 ends, and adds code which 
 //  matches to the KeyNote PDF of the Bob-2 lecture.  All SLIDE # 
@@ -198,7 +198,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
 //*     //  Bob-2  SLIDE 23 - Animate - DELETED !!
         if constraintTextStackBottom.constant == constraintInitially {
             keyBoardMove (moveUp: true) }
-//*/    //  s-23
+//*/    //  // s-23
         
         //   active field is red
         textField.textColor = UIColor.red
@@ -344,7 +344,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         print ( "KEYBOARD UP:  \(moveUp) "    )
         if moveUp {
             alpha = 0.1
-            constraint = self.constraintInitially! + 80}
+            constraint = self.constraintInitially! + 180}
         else {
             alpha = 1.0
             constraint =  self.constraintInitially!

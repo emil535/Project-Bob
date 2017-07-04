@@ -43,7 +43,7 @@ class MembersTableViewController: UITableViewController {
                 print("UPDATE ROW:  \(selectedIndexPath.row)")
                 sampleMembers[selectedIndexPath.row ] = member
                 self.tableView.reloadRows(at: [selectedIndexPath], with: UITableViewRowAnimation.automatic)
-                } else {
+            } else {
                 // Add new member if no row is selected
                 let newIndexPath = IndexPath(row: sampleMembers.count, section: 0)
                  print("APPEND:  \(newIndexPath.row)")
@@ -52,7 +52,7 @@ class MembersTableViewController: UITableViewController {
                  print("+MEMBER COUNT:  \(sampleMembers.count)")
                  print("INDEXPATH: \(newIndexPath) ")
                 self.tableView.insertRows(at: [newIndexPath], with: .automatic)
-                }
+            }
         }
         
    }    // unwindSave
@@ -62,7 +62,7 @@ class MembersTableViewController: UITableViewController {
     
     // MARK: - Table view data source
 
-/* //  Bob-2  SLIDE 10 - dequeue Reusable Cell
+/* //  Bob-2  SLIDE 16 - dequeue Reusable Cell
     override func numberOfSections(in tableView: UITableView) -> Int {
         // return the number of sections
         return 1
@@ -72,7 +72,7 @@ class MembersTableViewController: UITableViewController {
         // return the number of rows
         return sampleMembers.count
     }
-*/   //   s-10
+*/   //   s-16
 
 
     
