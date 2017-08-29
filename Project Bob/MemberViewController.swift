@@ -4,7 +4,7 @@
 //
 //  Created by Emil Safier on 1/20/17.
 //  Copyright © 2017 Emil Safier. All rights reserved.
-//  VERSION BOB-2    (All notes for Bob-1 slides removed)
+//  VERSION BOB-2    [ version MERGED into MASTER ]
 
 import UIKit
 class MemberViewController: UIViewController, UITextFieldDelegate ,
