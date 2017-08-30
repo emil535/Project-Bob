@@ -4,50 +4,40 @@
 //
 //  Created by Emil Safier on 1/20/17.
 //  Copyright © 2017 Emil Safier. All rights reserved.
-//  VERSION BOB-2    [ version MERGED into MASTER ]
+//  VERSION BOB-3S    [ version purged of all ref to Bob-2]
 
 import UIKit
 class MemberViewController: UIViewController, UITextFieldDelegate ,
     UIPickerViewDelegate, UIPickerViewDataSource,
     UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    // MARK: - Properties & Outlets
-    
-//*  //  Bob-2  SLIDE 6 - Add member or edit member
-    var newMember: Bool?  = false       // set value when TESTING
+    // MARK: - Properties
+    //  Add member or edit member
+    var newMember: Bool?  = false
     let defaultStatus = 0               // Guest
     let defaultSwiftLevel = 0           // Beginner
-    
-    /// sample data, used when editing existing member
-    // var thisMember: Member? = sampleMembers[2]   //  Bob-2  SLIDE 8  - DELETED  !!!
-//*/    s-6
-    
-//*    // Bob-2  SLIDE 32 - track needed for SaveButton enabled status
-    var memberNameBool: Bool = false         // set value when TESTING
+    //  Track needed for SaveButton enabled status
+    var memberNameBool: Bool = false
     var memberEmailBool: Bool = false
     var changeAnyBool: Bool = false
-//*/    s-32
-    
-    /// initialize property thisMember
-    var thisMember = Member(name: "", city: nil, eMail: nil, status: 0, level: 0, dateJoined: nil, image: nil)  //  Bob-2   SLIDE 39
-
+    //  initialize property thisMember
+    var thisMember = Member(name: "", city: nil, eMail: nil, status: 0, level: 0, dateJoined: nil, image: nil)
     //  datePicker and Picker
     let memberStatusPicker = UIPickerView()
     let memberJoinDatePicker = UIDatePicker()
+    //   constraintTextStackBottom.constant
+    var constraintInitially: CGFloat?
     
-    //    Animate
+    //  MARK: - Outlets
     @IBOutlet weak var memberImage: UIImageView!
     @IBOutlet weak var constraintTextStackBottom: NSLayoutConstraint!
-    var constraintInitially: CGFloat?       //   constraintTextStackBottom.constant
     @IBOutlet weak var memberName: UITextField!
     @IBOutlet weak var memberCity: UITextField!
     @IBOutlet weak var memberEMail: UITextField!
     @IBOutlet weak var memberStatus: UITextField!
     @IBOutlet weak var memberJoinDate: UITextField!
-    //    Save Button
-    @IBOutlet weak var saveBarButton: UIBarButtonItem!
+    @IBOutlet weak var saveBarButton: UIBarButtonItem!   //    Save Button
     
-   
     override func viewDidLoad() {
         super.viewDidLoad()
         self.memberName.delegate = self
@@ -55,11 +45,10 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         self.memberEMail.delegate = self
         self.memberStatus.delegate = self
         self.memberJoinDate.delegate = self
-        
         // picker delegates initialized
         self.memberStatusPicker.delegate = self
         self.memberStatusPicker.dataSource = self
-
+        
         // constraint initial value
         constraintInitially = self.constraintTextStackBottom.constant
 
@@ -69,17 +58,13 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         formatter.dateStyle = .medium
         formatter.timeStyle = .none
         
-        ///  save Button always initially disabled
-        saveBarButton.isEnabled = false     // Bob-2  SLIDE 32
+        //  save Button always initially disabled
+        saveBarButton.isEnabled = false
         
-//*     //  Bob-2  SLIDE 7 - put NEW MEMBER default data into display
+        //  NEW MEMBER default data into display
         if newMember! {
-        
-        //*    //  Bob-2  SLIDE 32  -  set initial state for changes
             memberNameBool = false
             memberEmailBool = false
-        //*/    //  s-32
-            
             // no image
             memberImage.image = UIImage(named: "No Image")
             // default value for pickerView
@@ -97,17 +82,12 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             memberJoinDate?.text = formatter.string(from: dateCurrent)
           //  thisMember.dateJoined = (memberJoinDate?.text)!     // member value to default setting
         }
-//*/    // s-7
-        
-//*     //  Bob-2  SLIDE 8 - CURRENT MEMBER sample data into display
+
+        //  CURRENT MEMBER sample data into display
         else {
-        
-        //*    //  Bob-2  SLIDE 32  -  set initial state for changes
             memberNameBool = true
             memberEmailBool = true
-        //*/    //  s-32
-            
-            memberImage.image =  thisMember.image    //  Bob-2  SLIDE 26 -
+            memberImage.image =  thisMember.image
             memberName.text = thisMember.name
             memberCity.text = thisMember.city
             memberEMail.text = thisMember.eMail
@@ -127,7 +107,6 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             //  set display based on pickerDate
             memberJoinDate?.text = formatter.string(from: memberJoinDatePicker.date)
         }
- //*/   s-8
 
         //  Tap ends edit session
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
@@ -139,8 +118,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
                            selector: #selector(keyboardWillHide),
                            name: .UIKeyboardWillHide,
                            object: nil)
-        
-//*      //  Bob-2  SLIDE 23 - Add observer when keyboard shows
+        //  Add observer when keyboard shows
         center.addObserver(self,
                            selector: #selector(keyboardWillShow),
                            name: .UIKeyboardWillShow,
@@ -159,13 +137,14 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     @IBAction func addImageButton(_ sender: UIButton) {
         
         ///  confirm validity of other entries
-        saveBarButton.isEnabled = memberNameBool && memberEmailBool  // Bob-2  SLIDE 32
+        saveBarButton.isEnabled = memberNameBool && memberEmailBool
         let photoPicker = UIImagePickerController()
         photoPicker.delegate = self
         photoPicker.sourceType = .photoLibrary
         self.present(photoPicker, animated: true, completion: nil)
     }
     
+    //  MARK: - Image Picker func
     //  Cancel - no image selected - dismiss Image Picker screen
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
@@ -179,49 +158,32 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     //  MARK:  -  Text Field
     //  user pressed Return/Done- resigh first responder
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print( "RETURN PRESSED" )
         textField.resignFirstResponder()
         return true
      }
     
     //  textFieldDidBeginEditing
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        
-/*     //  Bob-2  SLIDE 23 - Animate - DELETED !!
-        if constraintTextStackBottom.constant == constraintInitially {
-            keyBoardMove (moveUp: true) }
-*/
-        //   active field is red
-        textField.textColor = UIColor.red
-        
-        /// - some change made to something
-        changeAnyBool = true    // Bob-2  SLIDE 32 
-        
+        textField.textColor = UIColor.red       //   active field is red
+        changeAnyBool = true                    // - some change made to something
         //   select text field which is being edited
         switch textField {
         case memberName :
-            print ("KEYBOARD:  Standard")
             textField.returnKeyType = UIReturnKeyType.done
             textField.keyboardType = UIKeyboardType.default
         case memberCity:
-            print ("KEYBOARD:  Phone")
             textField.returnKeyType = UIReturnKeyType.done
             textField.keyboardType = UIKeyboardType.default
         case memberEMail:
-            print ( "KEYBOARD:  EMail ")
             textField.returnKeyType = UIReturnKeyType.done
             textField.keyboardType = UIKeyboardType.emailAddress
-        //  set Picker as input Keyboard
         case memberStatus:
-            print ("KEYBOARD:  Picker")
-            textField.inputView = memberStatusPicker
-        //  set Date Picker as input Keyboard
+            textField.inputView = memberStatusPicker    //  set Picker as input Keyboard
         case memberJoinDate!:
-            print ("KEYBOARD:  Date Picker")
             memberJoinDatePicker.addTarget(self,
                     action: #selector(MemberViewController.joinDateChanged(_:)),
                     for: .valueChanged)
-            textField.inputView = memberJoinDatePicker
+            textField.inputView = memberJoinDatePicker  //  set Date Picker as input Keyboard
         default:
            break
         }
@@ -229,42 +191,28 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
 
     //  validate data and indicate editing is done
     func textFieldDidEndEditing(_ textField: UITextField) {
-        print ("END EDITING")
         switch textField {
-
-//*     // Bob-2  SLIDE 25 - validate name & city
+        //  validate name & city
         case memberName, memberCity:
             let name = memberName.text!
-            print ("END EDIT:  Name")
             if isValidName(testStr: name) {
                 textField.textColor = UIColor.black
-                memberNameBool = true       // Bob-2  SLIDE 32
-                print ("VALID:  \(name) ")
-                print ("***** NAME:  \(memberNameBool)")
+                memberNameBool = true
             } else {
-                print ("INVALID:  \(name) ")
-                memberNameBool = false      // Bob-2  SLIDE 32
-                print ("***** NAME:  \(memberNameBool)")
+                memberNameBool = false
             }
-//*/    // s-25
-            
         case memberEMail:
-            print ("END EDIT:  E-Mail")
             if isValidEmail(testStr: memberEMail.text!) {
-                print ("e-Mail:  \(memberEMail.text!)")
                 textField.textColor = UIColor.black
-                memberEmailBool = true      // Bob-2  SLIDE 32
+                memberEmailBool = true
             } else {
-                print ("INVALID:  \(memberEMail.text!) ")
-                memberEmailBool = false     // Bob-2  SLIDE 32
+                memberEmailBool = false
             }
         default:
             textField.textColor = UIColor.black
         }
-   //*     // Bob-2  SLIDE 32 - enable Save Button
+        //   enable Save Button
         saveBarButton.isEnabled = memberNameBool && memberEmailBool && changeAnyBool
-        print("BUTTON:  \(saveBarButton.isEnabled)  NAME:   \(memberNameBool)    EMAIL:  \(memberEmailBool)")
-    //*/   // s-32
     }
     
     // MARK:  Date Picker
@@ -279,90 +227,46 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     @available(iOS 2.0, *)
     // set the number of spinners aka components in Picker View
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2  //  Bob-2  SLIDE 5
+        return 2
     }
     //   Set the number of rows in Picker View
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return memberInfo[component].count     //status.count
+        return memberInfo[component].count
     }
     //   Assign array of strings to PickerView
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return memberInfo[component][row]     //status[row]
+        return memberInfo[component][row]
     }
     //  Assign selection made by pickerView to textField
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        //  Bob-2  SLIDE 5
         if component == 0 {
             thisMember.status = row
-            // print("ROW:   ~~\(row)~~   ++\(component)++    **\(member.status)**")
         } else {
             thisMember.level = row
         }
         memberStatus.text = memberInfo[0][(thisMember.status)] + " - " +  memberInfo[1][(thisMember.level)]
     }
     
-    
-    
     //  MARK: - Support functions
-//*
-    //  Bob-2  SLIDE 23 -  notification action Will Show
+
+    //  notification action Will Show
     func keyboardWillShow(notification:NSNotification) -> Void {
-        ///   Add Notification Parameter
-        keyBoardMove(moveUp: true , notification: notification)   //  Bob-2  SLIDE 24
-      //  keyBoardMove(moveUp: true)
+        keyBoardMove(moveUp: true , notification: notification)
     }
-//*/
-//*
+
     //  notification action Will Hide
     func keyboardWillHide(notification:NSNotification) -> Void {
-        ///  Add Notification Parameter
-        keyBoardMove(moveUp: false, notification: notification)   //  Bob-2  SLIDE 24
-      //  keyBoardMove(moveUp: false)
+        keyBoardMove(moveUp: false, notification: notification)
     }
-//*/
     
-    
-    //  Animate for Keyboard
-    //  NOTE:  hide image and move (stack of) text fields out of the way by
-    //         modifying the constraint on the text stack and changing image alpha
-
-/*  // Bob-2  SLIDE 24 - Original VERSION - DELETED
-    func keyBoardMove (moveUp: Bool) -> Void {
-        var alpha: CGFloat
-        var constraint: CGFloat
-        print ( "KEYBOARD UP:  \(moveUp) "    )
-        if moveUp {
-            alpha = 0.1
-            constraint = self.constraintInitially! + 80}
-        else {
-            alpha = 1.0
-            constraint =  self.constraintInitially!
-            }
-        let animInterval = 1.0
-        print ("ALPHA: \(alpha)   CONSTRAIN: \(constraint)  ANIM:  \(animInterval)" )
-        UIView.animate (withDuration: animInterval,
-                            delay: 0,
-                            options: .curveEaseOut,
-                            animations: { () -> Void in
-                                self.memberImage.alpha = alpha
-                                self.constraintTextStackBottom.constant = constraint
-                                self.view.layoutIfNeeded()
-                                },
-                            completion: nil )
-    }
-*/
-    
-//*    // Bob-2  SLIDE 24 - now includes computation of keyboard size using notification info
-
+    //  Keyboard move includes computation of keyboard size using notification info
     func keyBoardMove (moveUp: Bool, notification: NSNotification) -> Void {
         //  use NSNotification.userInfo dictionary to get keyboard size
         var userInfo = notification.userInfo!
         let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! CGRect)
         let stackMove = keyboardFrame.height
-        print("Stack MOVE: \(stackMove)")
         var alpha: CGFloat
         var constraint: CGFloat
-        print ( "KEYBOARD UP:  \(moveUp) "  )
         if moveUp {
             alpha = 0.1
             constraint =  stackMove + 10}
@@ -372,7 +276,6 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         }
         let animInterval = 20.0
         let delay = 0.0
-        print ("ALPHA: \(alpha)   CONSTRAIN: \(constraint)  ANIM:  \(animInterval)   DELAY:  \(delay)" )
         UIView.animate (withDuration: animInterval,
                         delay: delay,
                         options: .transitionCrossDissolve, //.curveEaseIn ,
@@ -383,68 +286,43 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
                             },
                         completion: nil )
     }
-//*/
+
+        /*
+        NOTE:  A Regex (sometimes called a rational expression) is a sequence of characters that define a search pattern.
+             ref.  https://msdn.microsoft.com/en-us/library/az24scfc(v=vs.110).aspx
+        
+        
+         [A-Z0-9a-z]    valid match for any letter or number in the ranges shown
+         \s             matches any white space character;  note that \ is an escape so we need a 2nd \
+         {n,m}          matches the previous element at least n times but no more than m times
+         */
     
-    //  NOTE:  A Regex (sometimes called a rational expression) is a sequence of characters that define a search pattern.
-    //          ref.  https://msdn.microsoft.com/en-us/library/az24scfc(v=vs.110).aspx
     //  Validate E-Mail format
     func isValidEmail(testStr:String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-         print("testStr:  \(testStr)     emailTest:  \(emailTest) ")
         return emailTest.evaluate(with: testStr)
     }
-//*
-    // Bob-2  SLIDE 25 - Validate Name format (characters and numbers; max min size)
+
+    //  Validate Name format (characters and numbers; max min size)
     func isValidName(testStr:String) -> Bool {
         let nameRegEx = "[A-Z0-9a-z\\s]{2,24}"
         let nameTest = NSPredicate(format:"SELF MATCHES %@", nameRegEx)
         return nameTest.evaluate(with: testStr)
-//*/
-        /*
-         [A-Z0-9a-z]    valid match for any letter or number in the ranges shown
-         \s             matches any white space character;  note that \ is an escape so we need a 2nd \
-         {n,m}          matches the previous element at least n times but no more than m times
-                 print("testStr:  \(testStr)     nameTest:  \(nameTest) ")
-        */
     }
     
-
-
-
-
-
-
-//      RESERVED for BOB 2
-
-
-//  ====================================================
-    
-    
-    
-    
-
-    
-    
-    
-    //* MARK: - Navigation
-
-//* // Bob-2  SLIDE 31 - the Cancel Button
+    //  MARK: - Navigation
+    //  Cancel Button
     @IBAction func cancelBarButton(_ sender: UIBarButtonItem) {
         if newMember! {
-        //  dismissing a MODAL view
-        dismiss(animated: true, completion: nil)
-        print ("CANCEL pressed - DISMISS")
+            dismiss(animated: true, completion: nil)                    //  dismissing a MODAL view
         } else {
-            //  POPING  a view from the STACK
-            navigationController?.popViewController(animated: true)
-            print ("CANCEL pressed - POP")
+            navigationController?.popViewController(animated: true)     //  POPING  a view from the STACK
         }
     }
-//*/   // S-31
 
-//*    // Bob-2  SLIDE 34 - In a storyboard-based application, do a little preparation before navigation
+    //  preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
             //  member
@@ -456,8 +334,6 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             // joinDate on Date Picker
             thisMember.dateJoined = memberJoinDate.text
     }
-//*/    // s-34
-    
-}    // last curly braces for MemberViewController
+}    // ===== last curly braces for MemberViewController  =====
     
 
