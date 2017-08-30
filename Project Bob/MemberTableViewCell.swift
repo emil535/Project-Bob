@@ -4,21 +4,20 @@
 //
 //  Created by Emil Safier on 3/11/17.
 //  Copyright © 2017 Emil Safier. All rights reserved.
-//
+//  [ version purged of all ref to Bob-2]
 
 import UIKit
 
 class MemberTableViewCell: UITableViewCell {
 
-//  MARK: - Outlets
+    //  MARK: - Outlets
   
-//*     //    Bob-2  SLIDE 15 - Outlets from CUSTOM Cell
+    //  Outlets from CUSTOM Cell
     @IBOutlet weak var memberImage: UIImageView!
     @IBOutlet weak var memberNameLabel: UILabel!
     @IBOutlet weak var memberCityLabel: UILabel!
     @IBOutlet weak var memberStatusLabel: UILabel!
     @IBOutlet weak var memberSwiftLevelLabel: UILabel!
-//*/    s-15
     
     override func awakeFromNib() {
         super.awakeFromNib()

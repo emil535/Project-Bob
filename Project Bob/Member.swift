@@ -4,11 +4,12 @@
 //
 //  Created by Emil Safier on 1/20/17.
 //  Copyright © 2017 Emil Safier. All rights reserved.
-//
+//  [ version purged of all ref to Bob-2]
 
 import Foundation
 import UIKit
-//*   //  Bob-2  SLIDE 4 - Add Member Class in Model
+
+//  Add Member Class in Model
 class Member {
     var name: String        // name of Member
     var city: String?       // city of member
@@ -16,8 +17,6 @@ class Member {
     var status: Int         // 0, 1, 2, 3   Guest Member Presenter Organizer
     var level: Int          // swift level  Beginner, Novice, Qualified, Expert
     var dateJoined: String?
-    // Bob-2  SLIDE 26 - change image variable name to UIImage type
-    // var imageName: String     // image name of member  [ CORRECTION ]
     var image: UIImage?
     
     init(
@@ -27,8 +26,6 @@ class Member {
         status: Int,
         level: Int,
         dateJoined: String?,
-        // Bob-2  SLIDE 26 - change image variable name to UIImage type
-        // imageName: String?   //  [ CORRECTION ]
         image: UIImage?
         )
     {
@@ -38,15 +35,11 @@ class Member {
         self.status = status
         self.level = level
         self.dateJoined = dateJoined
-        // Bob-2  SLIDE 26 - change image variable name to UIImage type
-        // self.imageName = imageName   //  [ CORRECTION ]
         self.image = image
     }
 }
-//*/
 
-//*
-//  Bob-2  SLIDE 4 - Sample data
+//  Sample data
 var sampleMembers = [
     Member(name: "Emil Safier",
            city: "Tokyo",
@@ -86,12 +79,12 @@ var sampleMembers = [
            dateJoined: "Feb 14, 2017",
            image: UIImage(named: "Barnabe"))
 ]
-//*/    s-4
 
-//*     //  Bob-2  SLIDE 5 - Add array for Swift Level, and Array of Arrays
+
+//  Picker arrays for status and SwiftLevel  
 let status = ["Guest", "Member", "Presenter", "Organizer"]
 let swiftLevel = [ "Beginner", "Novice", "Experienced", "Expert", "Swift Guru"]
 // Array consisting of two arrays representing choices for status and level of member
 let memberInfo = [status, swiftLevel]
-//*/    s-5
+
 
