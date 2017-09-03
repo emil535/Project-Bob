@@ -10,12 +10,13 @@ import Foundation
 import UIKit
 
 //  Add Member Class in Model
-class Member {
-    var name: String        // name of Member
-    var city: String?       // city of member
-    var eMail: String?      // e-Mail address
-    var status: Int         // 0, 1, 2, 3   Guest Member Presenter Organizer
-    var level: Int          // swift level  Beginner, Novice, Qualified, Expert
+// Bob-3  SLIDE 11 - Changed to XMember to avoid conflict
+class XMember {
+    var name: String            // name of Member
+    var city: String?           // city of member
+    var eMail: String?          // e-Mail address
+    var status: Int             // 0, 1, 2, 3   Guest Member Presenter Organizer
+    var level: Int              // swift level  Beginner, Novice, Qualified, Expert
     var dateJoined: String?
     var image: UIImage?
     
@@ -40,15 +41,16 @@ class Member {
 }
 
 //  Sample data
+// Bob-3  SLIDE 12 - Changed to XMember to avoid conflict
 var sampleMembers = [
-    Member(name: "Emil Safier",
+    XMember(name: "Emil Safier",
            city: "Tokyo",
            eMail: "Emil502@Gmail.com",
            status: 2,
            level: 4,
            dateJoined: "June 14, 2017",
            image: UIImage(named: "Emil")),
-    Member(name: "Lucy Bodacious",
+    XMember(name: "Lucy Bodacious",
            city: "Los Angeles",
            eMail: "LucyBod.Aol.com",
            status: 0,
@@ -56,14 +58,14 @@ var sampleMembers = [
            dateJoined: "Jan aa, 2016",
            // imageName: "Lucy")),  //  [ CORRECTION ]
         image: UIImage(named: "Lucy")),
-    Member(name: "Albert Einstein",
+    XMember(name: "Albert Einstein",
             city: "Princeton, NJ",
             eMail: "Albert@Gmail.com",
             status: 1,
             level: 2,
             dateJoined: "Mar 14, 1979",
             image: UIImage(named: "Albert")),
-    Member(name: "Fred Zapata",
+    XMember(name: "Fred Zapata",
            city: "Lima Peru",
            eMail: "Fred8989@Gmail.com",
            status: 1,
@@ -71,7 +73,7 @@ var sampleMembers = [
            dateJoined: "Feb 14, 2015",
            image: UIImage(named: "Zapata")),
 
-    Member(name: "Barnabe McGee",
+    XMember(name: "Barnabe McGee",
            city: "San Francisco",
            eMail: "Barnabe302@Gmail.com",
            status: 0,

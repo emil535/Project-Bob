@@ -7,13 +7,15 @@
 //  VERSION BOB-3S    [ version purged of all ref to Bob-2]
 
 import UIKit
+import CoreData
 class MemberViewController: UIViewController, UITextFieldDelegate ,
     UIPickerViewDelegate, UIPickerViewDataSource,
     UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: - Properties
     //  Add member or edit member
-    var newMember: Bool?  = false
+    // Bob-3  SLIDE 11 - renamed newMember -> addMember
+    var addMember: Bool?  = false
     let defaultStatus = 0               // Guest
     let defaultSwiftLevel = 0           // Beginner
     //  Track needed for SaveButton enabled status
@@ -21,7 +23,9 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     var memberEmailBool: Bool = false
     var changeAnyBool: Bool = false
     //  initialize property thisMember
-    var thisMember = Member(name: "", city: nil, eMail: nil, status: 0, level: 0, dateJoined: nil, image: nil)
+    // Bob-3  SLIDE 11 - added newMember as local var, and changed thisMember to class XMember
+    var newMember = Member(context: BobDatabase.context)
+    var thisMember = XMember(name: "", city: nil, eMail: nil, status: 0, level: 0, dateJoined: nil, image: nil)
     //  datePicker and Picker
     let memberStatusPicker = UIPickerView()
     let memberJoinDatePicker = UIDatePicker()
@@ -62,15 +66,21 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         saveBarButton.isEnabled = false
         
         //  NEW MEMBER default data into display
-        if newMember! {
+        // Bob-3  SLIDE 11 - renamed newMember -> addMember
+        if addMember! {
             memberNameBool = false
             memberEmailBool = false
             // no image
             memberImage.image = UIImage(named: "No Image")
             // default value for pickerView
             // set Member values to default setting
-            thisMember.status = defaultStatus
-            thisMember.level = defaultSwiftLevel
+            
+           // Bob-3  SLIDE 11 - keeping both Member types
+            newMember.status = Int16(defaultStatus)
+            thisMember.status = (defaultStatus)
+            newMember.level = Int16(defaultSwiftLevel)
+            thisMember.level = (defaultSwiftLevel)
+            
             memberStatus.text = status[defaultStatus]  + " - " + swiftLevel[defaultSwiftLevel]
             //  matching settings on Status Picker
             memberStatusPicker.selectRow(defaultStatus, inComponent: 0, animated: true)
@@ -87,14 +97,14 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         else {
             memberNameBool = true
             memberEmailBool = true
-            memberImage.image =  thisMember.image
+          //  memberImage.image =  thisMember.image
             memberName.text = thisMember.name
             memberCity.text = thisMember.city
             memberEMail.text = thisMember.eMail
-            memberStatus.text = status[thisMember.status]  + " - " + swiftLevel[thisMember.level]
+            memberStatus.text = status[Int(thisMember.status)]  + " - " + swiftLevel[Int(thisMember.level)]
             // picked value for pickerView
-            memberStatusPicker.selectRow(thisMember.status, inComponent: 0, animated: true)
-            memberStatusPicker.selectRow(thisMember.level, inComponent: 1, animated: true)
+            memberStatusPicker.selectRow(Int(thisMember.status), inComponent: 0, animated: true)
+            memberStatusPicker.selectRow(Int(thisMember.level), inComponent: 1, animated: true)
             // joinDate on Date Picker
             // if date is valid then update picker, else set picker to default (current) date
             if let joinDate =  formatter.date(from: thisMember.dateJoined!)  {
@@ -123,7 +133,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
                            selector: #selector(keyboardWillShow),
                            name: .UIKeyboardWillShow,
                            object: nil)
-//*/    //  s-23
+
         
     }   // end viewDidLoad  =====================
     
@@ -240,11 +250,14 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     //  Assign selection made by pickerView to textField
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
-            thisMember.status = row
+            // Bob-3  SLIDE 11 - added case for newMember
+            newMember.status = Int16(row)
+            thisMember.status = (row)
         } else {
-            thisMember.level = row
+            newMember.level = Int16(row)
+            thisMember.level = (row)
         }
-        memberStatus.text = memberInfo[0][(thisMember.status)] + " - " +  memberInfo[1][(thisMember.level)]
+        memberStatus.text = memberInfo[0][Int(thisMember.status)] + " - " +  memberInfo[1][Int(thisMember.level)]
     }
     
     //  MARK: - Support functions
@@ -315,7 +328,8 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     //  MARK: - Navigation
     //  Cancel Button
     @IBAction func cancelBarButton(_ sender: UIBarButtonItem) {
-        if newMember! {
+            // Bob-3  SLIDE 11 - renamed newMember -> addMember
+        if addMember! {
             dismiss(animated: true, completion: nil)                    //  dismissing a MODAL view
         } else {
             navigationController?.popViewController(animated: true)     //  POPING  a view from the STACK
@@ -333,6 +347,19 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             // member.status and member.level are set by picker or defaults
             // joinDate on Date Picker
             thisMember.dateJoined = memberJoinDate.text
+        
+        // Bob-3  SLIDE 11 - save newMember in CoreData
+        //  Member as defined for coreData
+        
+        //newMember.image = memberImage.image           //  deal with later
+        newMember.name = memberName.text!
+        newMember.city = memberCity.text!
+        newMember.eMail = memberEMail.text!
+        // member.status and member.level are set by picker or defaults
+        // joinDate on Date Picker
+        newMember.dateJoined = memberJoinDate.text
+        // save new member in CoreData
+        BobDatabase.saveContext()       // saves the context;  saves the data
     }
 }    // ===== last curly braces for MemberViewController  =====
     

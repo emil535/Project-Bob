@@ -107,12 +107,14 @@ class MembersTableViewController: UITableViewController {
         if segue.identifier == "addMember" {
             let navVC = segue.destination as? UINavigationController                // target in NavController
             let targetVC = (navVC?.topViewController as? MemberViewController)!     // but we need ViewController
-            targetVC.newMember = true                                               // to access this Bool
+                // Bob-3  SLIDE 11 - renamed newMember -> addMember
+            targetVC.addMember = true                                               // to access this Bool
             targetVC.title = "Add Member"
         }
         else {
             let targetVC = segue.destination as? MemberViewController
-            targetVC?.newMember = false
+                // Bob-3  SLIDE 11 - renamed newMember -> addMember
+            targetVC?.addMember = false
             targetVC?.title = "Edit Member"
             
             // get info on selected cell

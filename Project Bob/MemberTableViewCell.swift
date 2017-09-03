@@ -4,7 +4,7 @@
 //
 //  Created by Emil Safier on 3/11/17.
 //  Copyright © 2017 Emil Safier. All rights reserved.
-//  [ version purged of all ref to Bob-2]
+//  [ Bob-3 version]
 
 import UIKit
 
