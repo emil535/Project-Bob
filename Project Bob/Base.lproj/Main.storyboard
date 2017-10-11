@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -101,11 +102,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Members" id="lx5-CR-Wq3">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Gor-NT-UpF">
-                            <connections>
-                                <segue destination="xfH-vK-6PB" kind="presentation" identifier="addMember" id="ABX-PB-L9O"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="Gor-NT-UpF">
+                                <connections>
+                                    <segue destination="xfH-vK-6PB" kind="presentation" identifier="addMember" id="ABX-PB-L9O"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="organize" id="wEh-Dq-6rQ">
+                                <connections>
+                                    <action selector="loadSampleMembers:" destination="c8f-Q7-Zf2" id="MY4-IT-Qkb"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tKK-8Y-fa7" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -8,14 +8,18 @@
 
 import UIKit
 import CoreData
+
 class MemberViewController: UIViewController, UITextFieldDelegate ,
     UIPickerViewDelegate, UIPickerViewDataSource,
     UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: - Properties
     //  Add member or edit member
-    // Bob-3  SLIDE 11 - renamed newMember -> addMember
+    
+    //  var newMember: Bool?  = false  // Bob-3  SLIDE 51 - renamed newMember -> addMember
     var addMember: Bool?  = false
+    
+    
     let defaultStatus = 0               // Guest
     let defaultSwiftLevel = 0           // Beginner
     //  Track needed for SaveButton enabled status
@@ -23,9 +27,14 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     var memberEmailBool: Bool = false
     var changeAnyBool: Bool = false
     //  initialize property thisMember
-    // Bob-3  SLIDE 11 - added newMember as local var, and changed thisMember to class XMember
-    var newMember = Member(context: BobDatabase.context)
+    
+    // Bob-3  SLIDE 51 - added newMember as local var, and changed thisMember to class XMember
+  //  print ("STOP:  before newMember ")
+    var newMember =    Member(context: BobDatabase.context)
+ //    print ("STOP:  after newMember ")
     var thisMember = XMember(name: "", city: nil, eMail: nil, status: 0, level: 0, dateJoined: nil, image: nil)
+    var moc:NSManagedObjectContext!      //  managed object context
+   
     //  datePicker and Picker
     let memberStatusPicker = UIPickerView()
     let memberJoinDatePicker = UIDatePicker()
@@ -44,6 +53,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.memberName.delegate = self
         self.memberCity.delegate = self
         self.memberEMail.delegate = self
@@ -65,8 +75,11 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         //  save Button always initially disabled
         saveBarButton.isEnabled = false
         
+        // Bob-3  SLIDE 53 -
+        moc = BobDatabase.context   // Managed Object Context
+        
         //  NEW MEMBER default data into display
-        // Bob-3  SLIDE 11 - renamed newMember -> addMember
+
         if addMember! {
             memberNameBool = false
             memberEmailBool = false
@@ -75,11 +88,11 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
             // default value for pickerView
             // set Member values to default setting
             
-           // Bob-3  SLIDE 11 - keeping both Member types
-            newMember.status = Int16(defaultStatus)
+           // Bob-3  SLIDE 53 - setting default values for status/level as Int16
             thisMember.status = (defaultStatus)
-            newMember.level = Int16(defaultSwiftLevel)
             thisMember.level = (defaultSwiftLevel)
+            newMember.status = Int16(defaultStatus)
+            newMember.level = Int16(defaultSwiftLevel)
             
             memberStatus.text = status[defaultStatus]  + " - " + swiftLevel[defaultSwiftLevel]
             //  matching settings on Status Picker
@@ -94,20 +107,35 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         }
 
         //  CURRENT MEMBER sample data into display
+        // Bob-3  SLIDE 23 - renamed addMember -> newMember: 
+        //  data sent is from CoreData - so conversions needed
         else {
             memberNameBool = true
             memberEmailBool = true
-          //  memberImage.image =  thisMember.image
-            memberName.text = thisMember.name
-            memberCity.text = thisMember.city
-            memberEMail.text = thisMember.eMail
-            memberStatus.text = status[Int(thisMember.status)]  + " - " + swiftLevel[Int(thisMember.level)]
+            
+            print ("Bob-3  SLIDE xx - convert NSData to UIImage")
+//            if newMember.image != nil {
+                memberImage.image =  UIImage( data: newMember.image! as Data )
+//            } else {
+//                self.memberImage.image = UIImage(named: "No Image")
+//            }
+//            print("//  CHECK:  Should we verify for Nil")
+            
+            memberName.text = newMember.name
+            memberCity.text = newMember.city
+            memberEMail.text = newMember.eMail
+            memberStatus.text = status[Int(newMember.status)]  + " - " + swiftLevel[Int(newMember.level)]
             // picked value for pickerView
-            memberStatusPicker.selectRow(Int(thisMember.status), inComponent: 0, animated: true)
-            memberStatusPicker.selectRow(Int(thisMember.level), inComponent: 1, animated: true)
+            memberStatusPicker.selectRow(Int(newMember.status), inComponent: 0, animated: true)
+            memberStatusPicker.selectRow(Int(newMember.level), inComponent: 1, animated: true)
             // joinDate on Date Picker
             // if date is valid then update picker, else set picker to default (current) date
-            if let joinDate =  formatter.date(from: thisMember.dateJoined!)  {
+//            if newMember.dateJoined == nil { memberJoinDatePicker.date =  Date()
+//            
+//                } else {
+//                
+//                print("before")
+            if let joinDate =  formatter.date(from: newMember.dateJoined!) {
               memberJoinDatePicker.date =  joinDate
             }
             else {
@@ -329,9 +357,16 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     //  Cancel Button
     @IBAction func cancelBarButton(_ sender: UIBarButtonItem) {
             // Bob-3  SLIDE 11 - renamed newMember -> addMember
+        //  remove temp Managed Object
+        
+        
         if addMember! {
+            print("cancelBarButton:  dismissing a MODAL view  ")
+            moc.delete(newMember)
             dismiss(animated: true, completion: nil)                    //  dismissing a MODAL view
         } else {
+            print("cancelBarButton:  dismissing a STACK view  ")
+           // moc.reset()    //delete(newMember)
             navigationController?.popViewController(animated: true)     //  POPING  a view from the STACK
         }
     }
@@ -340,18 +375,20 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
             //  member
-            thisMember.image = memberImage.image
-            thisMember.name = memberName.text!
-            thisMember.city = memberCity.text!
-            thisMember.eMail = memberEMail.text!
-            // member.status and member.level are set by picker or defaults
-            // joinDate on Date Picker
-            thisMember.dateJoined = memberJoinDate.text
+//            thisMember.image = memberImage.image
+//            thisMember.name = memberName.text!
+//            thisMember.city = memberCity.text!
+//            thisMember.eMail = memberEMail.text!
+//            // member.status and member.level are set by picker or defaults
+//            // joinDate on Date Picker
+//            thisMember.dateJoined = memberJoinDate.text
         
-        // Bob-3  SLIDE 11 - save newMember in CoreData
+        // Bob-3  SLIDE 52 - save image for newMember in CoreData as NSData
         //  Member as defined for coreData
+        let imageData: NSData = UIImageJPEGRepresentation(memberImage.image!, 1.0)! as NSData
+        newMember.image = imageData  // image stored as NSData
         
-        //newMember.image = memberImage.image           //  deal with later
+        // Bob-3  SLIDE 51 - save newMember in CoreData
         newMember.name = memberName.text!
         newMember.city = memberCity.text!
         newMember.eMail = memberEMail.text!
@@ -359,7 +396,13 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         // joinDate on Date Picker
         newMember.dateJoined = memberJoinDate.text
         // save new member in CoreData
-        BobDatabase.saveContext()       // saves the context;  saves the data
+        print("Member Controller prepare(for segue:  \(newMember.name)  ")
+        BobDatabase.saveContext()
+        
+//        do {
+//            try BobDatabase.context.save()
+//            print ("SAVED...")
+//        } catch {print (error) }
     }
 }    // ===== last curly braces for MemberViewController  =====
     

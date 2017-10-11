@@ -41,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // automatically save any revisions
         
+        // Bob-3  SLIDE 10 - always save changes made on quitting app
+        print("Will Terminate")
         BobDatabase.saveContext()
     }
 

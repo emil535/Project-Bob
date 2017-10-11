@@ -29,6 +29,7 @@ class BobDatabase {
          error conditions that could cause the creation of the store to fail.
          */
         
+        // Bob-3  SLIDE 9 - update file name reference
         let container = NSPersistentContainer(name: "BobDataModel")
         
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
