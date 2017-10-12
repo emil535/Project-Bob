@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Project Bob/MemberViewController.swift"
-            timestampString = "529441850.545946"
+            timestampString = "529523414.951546"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "400"
-            endingLineNumber = "400"
+            startingLineNumber = "401"
+            endingLineNumber = "401"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>

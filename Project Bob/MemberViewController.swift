@@ -30,7 +30,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
     
     // Bob-3  SLIDE 51 - added newMember as local var, and changed thisMember to class XMember
   //  print ("STOP:  before newMember ")
-    var newMember =    Member(context: BobDatabase.context)
+    var newMember = Member()   //=    Member(context: BobDatabase.context)
  //    print ("STOP:  after newMember ")
     var thisMember = XMember(name: "", city: nil, eMail: nil, status: 0, level: 0, dateJoined: nil, image: nil)
     var moc:NSManagedObjectContext!      //  managed object context
@@ -81,6 +81,7 @@ class MemberViewController: UIViewController, UITextFieldDelegate ,
         //  NEW MEMBER default data into display
 
         if addMember! {
+            newMember =    Member(context: BobDatabase.context)
             memberNameBool = false
             memberEmailBool = false
             // no image
